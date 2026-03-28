@@ -1,0 +1,52 @@
+.bgf-login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+.bgf-login-wrapper .login-form {
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 400px;
+}
+h2 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+.bgf-login-wrapper .input-group label {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+.bgf-login-wrapper .input-group input {
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid grey;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    width: 100%;
+    outline: none;
+    transition: all 0.3s ease;
+}
+.bgf-login-wrapper .input-group input:hover {
+    border-bottom-color: #888;
+}
+
+.bgf-login-wrapper .input-group input:focus {
+    border-bottom: 2px solid #000;
+}
+.bgf-login-wrapper .input-group input:focus {
+    border-bottom: 2px solid black;
+    box-shadow: 0 2px 0 black;
+}
+.bgf-login-wrapper .btn-group {
+    display: flex;
+    justify-content: center;
+}
+.bgf-login-wrapper .btn-group button {
+    
+    padding: 10px;
+
+}
