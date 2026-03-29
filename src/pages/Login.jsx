@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import api from '../api/api';
 import "./login.css";
+import { useAuth } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { setWishlist } from "../redux/wishlistSlice";
+import { getWishlist, mergeWishlist} from "../api/wishlist";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
-
+  const dispatch = useDispatch();
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -26,6 +32,13 @@ export default function Login() {
                         });
       api.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
       localStorage.setItem("accessToken", data.accessToken);
+      setUser(data.user);
+      
+      const localWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      await mergeWishlist(localWishlist);
+      
+      const wishlistResult = await getWishlist();
+      dispatch(setWishlist(wishlistResult.data.products.map(p => p._id)));
 
       navigate(from, { replace: true });
     } catch(error) {

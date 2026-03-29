@@ -24,7 +24,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
