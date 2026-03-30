@@ -19,7 +19,7 @@ header {
     width: 100%;
     height: 100%;
 }
-.menus {
+.bgf_header_wrapper .menus {
     width: 80%;
     display: flex;
     justify-content: flex-end;
@@ -27,7 +27,7 @@ header {
     padding-left: 20px;
     align-items: center;
 }
-.menus .user-data {
+.bgf_header_wrapper .menus .user-data {
     position: relative;
     display: flex;
     align-items: center;

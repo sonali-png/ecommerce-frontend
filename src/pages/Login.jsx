@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import api from '../api/api';
-import "./login.css";
+import "../css/login.css";
 import { useAuth } from "../context/AuthContext";
 import { useDispatch } from "react-redux";
 import { setWishlist } from "../redux/wishlistSlice";

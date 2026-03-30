@@ -3,7 +3,7 @@ import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import ProductList from "../components/ProductList";
 import ProductNotFound from "../components/ProductNotFound";
-import "./layout.css";
+import "../css/layout.css";
 
 export default function Product() {
     const [products, setProducts] = useState([]);

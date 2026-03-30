@@ -23,15 +23,15 @@ export default function Header({ openLogin }) {
     try {
       if (!user) return;
       await api.post("/logout", {}, {withCredentials:true});
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("wishlist");
-      dispatch(setWishlist([]));
-      setUser(null);
-      setUser(null);
-      setShowMenu(false);
     } catch(error) {
-      console.log(error);
+      console.log("Logout API failed, forcing logout anyway");
     }
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("wishlist");
+    dispatch(setWishlist([]));
+    setUser(null);
+    setShowMenu(false);
+    navigate("/", { replace: true });
   }
 
   return (
@@ -57,7 +57,7 @@ export default function Header({ openLogin }) {
                     <div className={`dropdown ${showMenu ? "active" : ""}`}>
                       <p onClick={()=>navigate("/profile")}>Profile</p>
                       <p onClick={()=>navigate("/orders")}>Orders</p>
-                      <p onClick={handleLogout}>Logout</p>
+                      <p onClick={(e) => { e.stopPropagation(); handleLogout(); }}>Logout</p>
                     </div>
                   </div> : 
                   <div className="icon-text" onClick={openLogin}>Login</div>}

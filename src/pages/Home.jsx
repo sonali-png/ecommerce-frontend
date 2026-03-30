@@ -4,7 +4,7 @@ import men_banner from "../images/men.jpg";
 import women_banner from "../images/women.jpg";
 import kids_banner from "../images/kids.jpg";
 import jwellery_banner from "../images/jwellery.jpg";
-import "./layout.css";
+import "../css/layout.css";
 
 export default function Home() {
     return (

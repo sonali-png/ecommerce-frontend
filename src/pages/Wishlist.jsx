@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
 import AccountSidebar from '../components/AccountSidebar'
 import axios from 'axios';
-import ProductList from '../components/ProductList';
+import OtherProductsList from '../components/OtherProductsList';
 import ProductNotFound from '../components/ProductNotFound';
 
 export default function Wishlist() {
@@ -32,10 +32,9 @@ export default function Wishlist() {
 
 
   return (
-    <div className='bgf-account-layout-wrapper'>
-        <AccountSidebar />
-        { products.length > 0 ?  <ProductList products={products}/> : <ProductNotFound message="Nothing in wishlist" /> }
-    </div>
+    <>
+        { products.length > 0 ?  <OtherProductsList products={products} pageHeading="My wishlist"/> : <ProductNotFound message="Nothing in wishlist" /> }
+    </>
   )
 }
 

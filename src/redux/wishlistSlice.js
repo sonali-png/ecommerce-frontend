@@ -16,7 +16,7 @@ const wishlistSlice = createSlice({
       const exists = state.items.includes(productId);
 
       if (exists) {
-        const updated = state.items.filter(id => id !== action.payload);
+        const updated = state.items.filter(id => id !== productId);
         state.items = updated;
       } else {
         state.items.push(productId);
