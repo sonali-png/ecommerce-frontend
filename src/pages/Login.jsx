@@ -5,7 +5,7 @@ import "./login.css";
 import { useAuth } from "../context/AuthContext";
 import { useDispatch } from "react-redux";
 import { setWishlist } from "../redux/wishlistSlice";
-import { getWishlist, mergeWishlist} from "../api/wishlist";
+import { mergeWishlist} from "../api/wishlist";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,11 +35,14 @@ export default function Login() {
       setUser(data.user);
       
       const localWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      
       await mergeWishlist(localWishlist);
       
-      const wishlistResult = await getWishlist();
-      dispatch(setWishlist(wishlistResult.data.products.map(p => p._id)));
-
+      const wishlistResult = await api.get("/wishlist");
+      const products = wishlistResult?.data?.products || [];
+      if(products.length > 0) {
+        dispatch(setWishlist(products.map(p => p._id)));
+      }
       navigate(from, { replace: true });
     } catch(error) {
       setError("Invalid credentials. Please try again.");

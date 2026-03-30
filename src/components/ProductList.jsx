@@ -8,21 +8,21 @@ export default function ProductList(props) {
   const dispatch = useDispatch();
   const wishlist = useSelector(state=>state.wishlist.items) || [];
   const token = localStorage.getItem("accessToken");
-  console.log(`Tokeen in prod list : ${token}`);
 
   const handleWishlist = async (productId) => {
-    const exists = wishlist.length > 0 ? wishlist.includes(productId) : false;
-    dispatch(toggleWishlist(productId));
+    const exists = wishlist.includes(productId);
     try {
-      if(token){
-        if(exists) {
+      if (token) {
+        if (exists) {
           await removeFromWishlist(productId);
         } else {
           await addToWishlist(productId);
         }
       }
-    } catch(error) {
-      console.log(`Err : ${error}`);
+
+      dispatch(toggleWishlist(productId)); // after success
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -30,15 +30,15 @@ export default function ProductList(props) {
     <div className='product-list'>
       { 
         props.products.map((product) => (
-          <div className='product-dtl-box'>
+          <div className='product-dtl-box' key={`prod-box-${product._id}`}>
             <div className='wishlist' onClick={()=>handleWishlist(product._id)}>
               <FontAwesomeIcon 
                 icon={faHeart} 
-                style={{fontSize:"1.5rem", color: wishlist.length > 0 && wishlist.includes(product._id) ? "red" : "black"}}
+                style={{fontSize:"1.5rem", color: wishlist.includes(product._id) ? "red" : "black"}}
               />
             </div>
             <div className='product-img'>
-              <img src={product.images[1]} alt="img"/>
+              <img src={product.images?.[0]} alt="img"/>
             </div>
             <div className='product-info'>
               <h3>{product.brand}</h3>

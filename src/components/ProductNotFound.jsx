@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function ProductNotFound() {
+export default function ProductNotFound({message}) {
   return (
-    <div>Product Not Found</div>
+    <div>{message || "Product not found"}</div>
   )
 }

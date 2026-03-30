@@ -12,14 +12,16 @@ const wishlistSlice = createSlice({
     },
     toggleWishlist: (state, action) => {
       const productId = action.payload;
-      console.log(`state : ${JSON.stringify(state, null, 2)}`);
-      const exists = false;//state.items.includes(productId);
       
-      if(exists) {
-        // state.items = state.items.filter(id => id !== productId);
+      const exists = state.items.includes(productId);
+
+      if (exists) {
+        const updated = state.items.filter(id => id !== action.payload);
+        state.items = updated;
       } else {
-        // state.items.push(productId);
+        state.items.push(productId);
       }
+
       localStorage.setItem("wishlist", JSON.stringify(state.items));
     }
   }
