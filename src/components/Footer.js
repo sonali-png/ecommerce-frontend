@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div>Footer</div>
+    <footer><div className='footer'>copyright @bagify.com</div></footer>
   )
 }

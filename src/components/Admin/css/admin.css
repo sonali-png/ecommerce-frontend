@@ -1,0 +1,56 @@
+.bgf_admin_header_wrapper {
+    width: 100%;
+   border-bottom: 1px solid darkgray;
+}
+.bgf_admin_header_wrapper .content_header {
+    padding: 0 20px;
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.bgf_admin_header_wrapper .bgf_logo {
+    height: 70px;
+    width: 20%;
+}
+.bgf_admin_header_wrapper .bgf_logo img {
+    width: 100%;
+    height: 100%;
+}
+.bgf_admin_header_wrapper .menus {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    float: left;
+    padding-left: 20px;
+    align-items: center;
+}
+.bgf_admin_header_wrapper .menus .user-data {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.bgf-admin-container {
+  display: flex;
+}
+
+.product-list-container {
+  width: calc(100% - 250px);
+  background-color: #f4f4f4;
+}
+.bgf-login-wrapper {
+    margin: 0 auto;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.footer {
+    background-color: #f4f4f4;
+    margin: 0 auto;
+    color: black;
+    padding: 20px;
+    text-align: center;
+}

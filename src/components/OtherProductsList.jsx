@@ -18,7 +18,7 @@ export default function OtherProductsList(props) {
 };
 
     return (
-    <div className="bgf-other-product-wrapper">
+    <div className="bgf-other-wrapper">
         <div className='bgf-other-title'>
             <span>{props.pageHeading}</span>
         </div>

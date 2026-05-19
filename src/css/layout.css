@@ -1,9 +1,9 @@
 
-header {
+.bgf_header_wrapper {
     width: 100%;
    background-color: #f4f4f4;
 }
-.content_header {
+.bgf_header_wrapper .content_header {
     padding: 0 20px;
     max-width: 980px;
     margin: 0 auto;
@@ -11,11 +11,11 @@ header {
     align-items: center;
     flex-direction: row;
 }
-.bgf_logo {
+.bgf_header_wrapper .bgf_logo {
     height: 70px;
     width: 20%;
 }
-.bgf_logo img {
+.bgf_header_wrapper .bgf_logo img {
     width: 100%;
     height: 100%;
 }

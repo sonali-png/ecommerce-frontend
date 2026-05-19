@@ -6,18 +6,28 @@ import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthContext';
 import { Provider } from 'react-redux';
 import {store} from './redux/store';
+import { AdminAuthProvider } from './context/AdminAuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const isAdminRoute = window.location.pathname.startsWith('/admin');
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      {isAdminRoute ? (
+        <AdminAuthProvider>
+          <App />
+        </AdminAuthProvider>
+      ) : (
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      )}
     </Provider>
   </React.StrictMode>
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

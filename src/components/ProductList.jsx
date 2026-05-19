@@ -5,9 +5,10 @@ import { toggleWishlist } from "../redux/wishlistSlice";
 import { addToWishlist, removeFromWishlist} from "../api/wishlist";
 
 export default function ProductList(props) {
+  console.log(`props : ${JSON.stringify(props, null, 2)}`);
   const dispatch = useDispatch();
   const wishlist = useSelector(state=>state.wishlist.items) || [];
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("userAccessToken");
 
   const handleWishlist = async (productId) => {
     const exists = wishlist.includes(productId);
@@ -30,6 +31,7 @@ export default function ProductList(props) {
     <div className='product-list'>
       { 
         props.products.map((product) => (
+          
           <div className='product-dtl-box' key={`prod-box-${product._id}`}>
             <div className='wishlist' onClick={()=>handleWishlist(product._id)}>
               <FontAwesomeIcon 
@@ -38,10 +40,10 @@ export default function ProductList(props) {
               />
             </div>
             <div className='product-img'>
-              <img src={product.images?.[0]} alt="img"/>
+              <img src={product.thumbImage?.[0]?.url} alt="img" loading="lazy" />
             </div>
             <div className='product-info'>
-              <h3>{product.brand}</h3>
+              <h3>{product.brand?.name}</h3>
               <p>{product.name}</p>
               <span>{product.price}</span>
             </div>

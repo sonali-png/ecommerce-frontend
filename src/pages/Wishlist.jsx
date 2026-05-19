@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux'
-import AccountSidebar from '../components/AccountSidebar'
 import axios from 'axios';
 import OtherProductsList from '../components/OtherProductsList';
 import ProductNotFound from '../components/ProductNotFound';
@@ -27,7 +26,6 @@ export default function Wishlist() {
       return;
     }
     fetchProducts();
-
   }, [items]);
 
 

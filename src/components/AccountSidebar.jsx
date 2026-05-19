@@ -8,12 +8,12 @@ export default function AccountSidebar() {
     <div className='bgf-account-sidebar'>
         <div className="menus">
           <div className="menu-link">
-            <NavLink to="/profile" >
+            <NavLink to="/account/" >
               Profile
             </NavLink>
           </div>
           <div className="menu-link">
-            <NavLink to="/orders">
+            <NavLink to="/account/orders">
               My Orders
             </NavLink>
           </div>

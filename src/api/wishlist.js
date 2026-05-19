@@ -1,13 +1,13 @@
-import api from "./api";
+import userApi from "./userApi";
 export const addToWishlist = (productId) => {
-    api.post("/wishlist", {productId});
+    userApi.post("/wishlist", {productId});
 }
 export const removeFromWishlist = (productId) => { 
-    api.delete(`/wishlist/${productId}`)
+    userApi.delete(`/wishlist/${productId}`)
 };
 export const getWishlist = () => { 
-    api.get("/wishlist");
+    userApi.get("/wishlist");
 }
 export const mergeWishlist = (items) => { 
-    api.post("/wishlist/merge", {items});
+    userApi.post("/wishlist/merge", {items});
 }

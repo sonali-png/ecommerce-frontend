@@ -1,0 +1,102 @@
+.form-container {
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  height: 80vh;
+  overflow-y: auto;
+}
+.form-input-wrapper {
+  width: 100%;
+}
+.form-input-wrapper .form-fields {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.form-input-wrapper input,
+.form-input-wrapper textarea,
+.form-input-wrapper select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  height: 40px;
+  padding: 8px 15px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+button:hover {
+  opacity: 0.8;
+}
+.column1 {
+  width: 60%;
+}
+
+.column2 {
+  width: 40%;
+  border-left: 1px solid #ddd;
+  padding-left: 20px;
+}
+
+.color-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.form-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.form-container th,
+.form-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.form-container th {
+  background: #f4f4f4;
+}
+.color-td {
+  display: flex;
+}
+.accordion-item {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.accordion-header {
+  background: #f5f5f5;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.accordion-body {
+  padding: 10px;
+  background: #fff;
+}
+
+.image-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}

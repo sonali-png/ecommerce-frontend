@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import api from '../api/api';
+import userApi from '../api/userApi';
 import "../css/login.css";
 import { useAuth } from "../context/AuthContext";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import { mergeWishlist} from "../api/wishlist";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [userId, setuserId] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { setUser } = useAuth();
@@ -22,23 +22,23 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      const { data } = await api.post("/login", 
+      const { data } = await userApi.post("/login", 
                         { 
-                          username: username,
+                          userId: userId,
                           email:email, 
                           password: password 
                         }, {
                           withCredentials:true
                         });
-      api.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
-      localStorage.setItem("accessToken", data.accessToken);
+      userApi.defaults.headers.common["Authorization"] = `Bearer ${data.userAccessToken}`;
+      localStorage.setItem("userAccessToken", data.userAccessToken);
       setUser(data.user);
       
       const localWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
       
       await mergeWishlist(localWishlist);
       
-      const wishlistResult = await api.get("/wishlist");
+      const wishlistResult = await userApi.get("/wishlist");
       const products = wishlistResult?.data?.products || [];
       if(products.length > 0) {
         dispatch(setWishlist(products.map(p => p._id)));
@@ -55,12 +55,12 @@ export default function Login() {
         <h2>Login</h2>
           <form onSubmit={handleLogin}>
             <div className="input-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="userId">User Id</label>
               <input 
-                type="username" 
-                placeholder="Username" 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
+                type="userId" 
+                placeholder="userId" 
+                value={userId} 
+                onChange={(e) => setuserId(e.target.value)} 
               />
             </div>
             <div className="input-group">
