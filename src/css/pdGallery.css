@@ -1,0 +1,38 @@
+.product-gallery {
+  display: flex;
+  gap: 40px;
+  width: 60%;
+}
+.sp-detail-wrapper {
+  display: flex;
+}
+
+.thumbnail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 70px;
+  height: 90px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid #ddd;
+}
+
+.thumbnail.active {
+  border: 2px solid #000;
+}
+
+.main-image-container {
+  width: 500px;
+  height: 650px;
+  overflow: hidden;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

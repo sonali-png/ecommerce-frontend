@@ -1,0 +1,282 @@
+# 1. Introduction
+
+This document describes the professional folder structure and development process of a Full Stack E-Commerce project using:
+
+* **Frontend:** ReactJS
+* **Backend:** NodeJS + ExpressJS (MVC Architecture)
+* **Database:** MongoDB
+
+## Features
+
+* Home Page
+* Product Listing
+* Product Details
+* Shopping Cart
+* Wishlist
+* User Authentication
+* Checkout & Payment
+* User Profile
+* Admin Dashboard
+* Seller Dashboard
+* Customer Dashboard
+* Product Search
+* Recommendation System
+* Notification System
+* Advanced Product Filters
+* Repository Pattern
+* Order Management
+
+---
+
+# 2. MVC Architecture Overview
+
+## Model
+
+Represents the MongoDB schemas and database collections.
+
+Examples:
+
+* Product
+* Category
+* Brand
+* User
+* Cart
+* Wishlist
+* Order
+
+## View
+
+ReactJS frontend responsible for rendering the user interface.
+
+Examples:
+
+* Home Page
+* Product Listing
+* Product Details
+* Cart Page
+* Wishlist Page
+* Checkout Page
+* User Dashboard
+* Admin Dashboard
+
+## Controller
+
+Receives HTTP requests and sends responses.
+
+Responsibilities:
+
+* Validate requests
+* Call Service layer
+* Return API responses
+
+## Service
+
+Contains all business logic.
+
+Examples:
+
+* Add product to cart
+* Remove from wishlist
+* Calculate cart total
+* Process checkout
+* Validate stock
+
+## Repository
+
+Responsible for all database operations.
+
+Responsibilities:
+
+* Create
+* Read
+* Update
+* Delete (CRUD)
+
+---
+
+## Request Flow
+
+```text
+React Frontend
+      │
+      ▼
+REST API
+      │
+      ▼
+Controller
+      │
+      ▼
+Service
+      │
+      ▼
+Repository
+      │
+      ▼
+MongoDB
+```
+
+---
+
+# 3. Add to Cart Functionality
+
+The Add to Cart feature allows customers to save products for purchase while maintaining selected product variants such as size, color, quantity, and price.
+
+## Frontend (ReactJS)
+
+### Features
+
+* Add product from Product Listing page
+* Add product from Product Details page
+* Select size and color before adding
+* Increase or decrease quantity
+* Remove product from cart
+* Display cart item count in the header
+* Store cart in Redux Context or Local Storage for guest users
+* Synchronize cart with the backend after user login
+
+## Backend
+
+### Cart APIs
+
+* Add Product to Cart
+* Get User Cart
+* Update Cart Quantity
+* Remove Cart Item
+* Clear Cart
+
+## Cart Collection Example
+
+```javascript
+{
+    userId,
+    items: [
+        {
+            productId,
+            variantId,
+            quantity,
+            price
+        }
+    ]
+}
+```
+
+## Flow
+
+```text
+Product Page
+      │
+Click Add to Cart
+      │
+      ▼
+React API Call
+      │
+      ▼
+Cart Controller
+      │
+      ▼
+Cart Service
+      │
+      ▼
+Cart Repository
+      │
+      ▼
+MongoDB
+```
+
+---
+
+# 4. Add to Wishlist Functionality
+
+Wishlist allows customers to save products for future purchase without adding them to the shopping cart.
+
+## Frontend (ReactJS)
+
+### Features
+
+* Add to Wishlist
+* Remove from Wishlist
+* Heart icon toggle
+* Wishlist page
+* Display wishlist count in header
+* Move item from Wishlist to Cart
+
+## Backend
+
+### Wishlist APIs
+
+* Add Product to Wishlist
+* Get Wishlist
+* Remove Product from Wishlist
+* Clear Wishlist
+
+## Wishlist Collection Example
+
+```javascript
+{
+    userId,
+    products: [
+        productId
+    ]
+}
+```
+
+## Flow
+
+```text
+Product Page
+      │
+Click Wishlist Button
+      │
+      ▼
+React API Call
+      │
+      ▼
+Wishlist Controller
+      │
+      ▼
+Wishlist Service
+      │
+      ▼
+Wishlist Repository
+      │
+      ▼
+MongoDB
+```
+
+---
+
+# 5. Cart & Wishlist Integration
+
+### Guest User
+
+* Cart data stored in Local Storage
+* Wishlist stored in Local Storage
+
+### Logged-in User
+
+* Cart stored in MongoDB
+* Wishlist stored in MongoDB
+* Local Storage data synchronized after login
+
+---
+
+# 6. Advantages
+
+* Clean MVC Architecture
+* Reusable Service Layer
+* Repository Pattern for database abstraction
+* Scalable and maintainable codebase
+* Efficient cart and wishlist synchronization
+* Easy integration with payment and order modules
+* Supports guest and authenticated users
+
+Backend (Controller, Service, Repository, Routes, Models)
+✅ Frontend (React Context, API, Components, Pages)
+✅ Guest cart (LocalStorage)
+✅ User cart (MongoDB)
+✅ Wishlist
+✅ Move Wishlist → Cart
+✅ Quantity updates
+✅ Variant (Size/Color) support
+✅ Professional folder structure
+✅ Comments explaining every function

@@ -2,13 +2,11 @@ import axios from "axios";
 
 const userApi = axios.create({
   baseURL: "http://localhost:5000",
-  withCredentials: true,
 });
 
 // Request interceptor
 userApi.interceptors.request.use((config) => {
   const token = localStorage.getItem("userAccessToken");
-  console.log(`token : ${token}`);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -1,0 +1,6 @@
+.form-input-wrapper input {
+    margin:0;
+}
+.flex-checkboxes {
+    display: flex;
+}

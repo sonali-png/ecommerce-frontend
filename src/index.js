@@ -14,17 +14,19 @@ const isAdminRoute = window.location.pathname.startsWith('/admin');
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      {isAdminRoute ? (
-        <AdminAuthProvider>
-          <App />
-        </AdminAuthProvider>
-      ) : (
+    { isAdminRoute ? 
+      (
+      <AdminAuthProvider>
+        <App />
+      </AdminAuthProvider>
+    ) : 
+    (
+      <Provider store={store}>
         <AuthProvider>
           <App />
         </AuthProvider>
-      )}
-    </Provider>
+      </Provider>
+    ) }
   </React.StrictMode>
 );
 

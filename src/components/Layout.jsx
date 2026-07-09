@@ -9,12 +9,12 @@ export default function Layout() {
   return (
     <>
       <Header fromLayout="user"/>
-
-      <div className="bgf-container">
+      
+      <div id="content" className="site-content">
         <Outlet />
       </div>
 
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

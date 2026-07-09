@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { useDispatch } from "react-redux";
 import { setWishlist } from "../redux/wishlistSlice";
 import { mergeWishlist} from "../api/wishlist";
+import { mergeGuestCartServer } from "../redux/cartSlice"
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -32,7 +33,12 @@ export default function Login() {
                         });
       userApi.defaults.headers.common["Authorization"] = `Bearer ${data.userAccessToken}`;
       localStorage.setItem("userAccessToken", data.userAccessToken);
-      setUser(data.user);
+      setUser(data.user); 
+
+      const localCart = JSON.parse(localStorage.getItem("guest_cart")) || [];
+      if (localCart.length > 0) {
+        await dispatch(mergeGuestCartServer({ userId: data.user._id, guestItems: localCart }));
+      }
       
       const localWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
       

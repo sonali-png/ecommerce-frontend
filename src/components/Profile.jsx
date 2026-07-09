@@ -12,7 +12,7 @@ export default function Profile(props) {
   const [mobile, setMobile]= useState("");
   useEffect( ()=>{
     const fetchUser = async () => { 
-      const result = await userApi.get("/getuserdata", {
+      const result = await userApi.get("/auth/getuserdata", {
                           withCredentials:true
                         });
       const userData = result?.data || {}; 

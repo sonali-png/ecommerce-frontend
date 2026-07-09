@@ -42,15 +42,4 @@
 .bgf-login-wrapper {
     margin: 0 auto;
 }
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-.footer {
-    background-color: #f4f4f4;
-    margin: 0 auto;
-    color: black;
-    padding: 20px;
-    text-align: center;
-}
+

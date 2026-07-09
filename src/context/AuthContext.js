@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
             }
             try {
                 
-                const {data} =  await userApi.get("/getuserdata");
+                const {data} =  await userApi.get("/auth/getuserdata");
                 console.log(`Data from auth : ${data}`);
                 setUser(data.user);
             } catch (err) {
