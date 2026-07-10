@@ -1,7 +1,5 @@
 import header_logo from "../images/output-onlinepngtools.png";
 import UserMenus from "./UserMenus";
-import AdminMenus from "./Admin/AdminMenus";
-import '../components/Admin/css/admin.css';
 import ProductSearchWidget from "./ProductSearchWidget";
 export default function Header({fromLayout}) {
   return (

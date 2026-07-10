@@ -22,6 +22,10 @@ export const updateCartQuantityServer = createAsyncThunk('cart/updateCartQuantit
   return response.data.items;
 });
 
+export const removeFromUserCartServer = createAsyncThunk( "cart/removeFromUserCartServer", async ({ userId, productId }) => {
+  const response = await axios.post(`/cart/${userId}/remove`, { productId,});
+  return response.data.items;
+});
 const initialState = {
   items: JSON.parse(localStorage.getItem('guest_cart')) || [],
   status: 'idle',
@@ -77,9 +81,12 @@ const cartSlice = createSlice({
       .addCase(mergeGuestCartServer.fulfilled, (state, action) => {
         state.items = action.payload;
         localStorage.removeItem('guest_cart'); // Safe to wipe local backup now
+      })
+      .addCase(removeFromUserCartServer.fulfilled, (state, action) => {
+          state.items = action.payload;
       });
   }
 });
 
-export const { addToGuestCart, clearGuestCart } = cartSlice.actions;
+export const { addToGuestCart, clearGuestCart, removeFromGuestCart, updateGuestQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

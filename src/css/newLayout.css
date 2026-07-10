@@ -94,6 +94,7 @@ a {
 .sp-container {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
 .sp-container-left {
     width: 20%;

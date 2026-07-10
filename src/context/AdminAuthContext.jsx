@@ -5,25 +5,32 @@ export const AdminAuthContext = createContext();
 
 export const AdminAuthProvider = ({ children }) => {
     const [admin, setAdmin] = useState(null);
-
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         const loadAdmin = async () => {
             try {
-                const { data } = await adminApi.get("/admin/getadmindata", {
-                    withCredentials: true
-                });
+                console.log("Loading admin...");
 
-                console.log(`Data from admin auth :`, data);
+                const { data } = await adminApi.get("/admin/getadmindata");
+
+                console.log("Response:", data);
+
                 setAdmin(data.user);
-            } catch (error) {
+            } catch (err) {
+                console.log("Error:", err.response?.status);
+                console.log("Data:", err.response?.data);
+
                 setAdmin(null);
+            } finally {
+                setLoading(false);
             }
         };
-        loadAdmin();        
+
+        loadAdmin();
     }, []);
 
     return (
-        <AdminAuthContext.Provider value={{ admin, setAdmin }}>
+        <AdminAuthContext.Provider value={{ admin, setAdmin, loading }}>
             {children}
         </AdminAuthContext.Provider>
     );

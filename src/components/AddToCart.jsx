@@ -15,7 +15,7 @@ export default function AddToCart({
 
     const cartItems = useSelector((state) => state.cart.items);
 
-    const isProductInCart = cartItems.some((item) => item.productId === product[0]._id);
+    const isProductInCart = cartItems.some((item) => item.productId === product[0]?._id);
 
     const handleAddToCart = () => {
 

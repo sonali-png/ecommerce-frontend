@@ -39,11 +39,11 @@ export default function AddEdit() {
         categoryId: product.categoryId || "", // safe access
         brandId: product.brandId || "",
         variants: product.variants || [],
-        colorImages: product.colorImages || [],
+        colorImages: product?.colorImages || [],
         specifications: product.specifications || [],
         attributes: categories.find(c => c._id === product.categoryId)?.attributeIds || []
       });
-      setColors((product.colorImages || []).map(c => c.color));
+      setColors((product?.colorImages || []).map(c => c.color));
     }
   }, [id, product]);
 
@@ -78,7 +78,7 @@ export default function AddEdit() {
       brandId: formData.brandId,
       variants: formData.variants,
       specifications: formData.specifications,
-      colorImages: formData.colorImages.map(c => ({
+      colorImages: formData?.colorImages.map(c => ({
         color: c.color,
         images: c.images
           .filter(img => !(img instanceof File))
@@ -92,7 +92,7 @@ export default function AddEdit() {
     };
     payload.append("collectionName", "products");
     payload.append("data", JSON.stringify(structuredData));
-    formData.colorImages.forEach((c, i) => {
+    formData?.colorImages.forEach((c, i) => {
       c.images.forEach(img => {
         if (img instanceof File) {
           payload.append(`images_${i}`, img);

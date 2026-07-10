@@ -1,18 +1,25 @@
-import React from 'react'
-import Header from '../Header';
+import React from "react";
 import { Outlet } from "react-router-dom";
-import AdminSidebar from './AdminSidebar';
-import Footer from '../Footer';
+
+import AdminHeader from "./AdminHeader";
+import AdminSidebar from "./AdminSidebar";
+import Footer from "../Footer";
+
+import Styles from "../../css/Admin/Style.module.css";
+
 export default function AdminLayout() {
   return (
-    <div>
-        <Header fromLayout="admin"/>
-        <div className='bgf-admin-container'>
-          <AdminSidebar />
+    <>
+      <div className={Styles.mainWrapper}>
+        <AdminSidebar />
+
+        <div className={`${Styles.mainContent} ${Styles.noSidebarOffset}`}>
+          <AdminHeader />
           <Outlet />
-          
         </div>
-        <Footer />
-    </div>
-  )
+      </div>
+
+      <Footer />
+    </>
+  );
 }
