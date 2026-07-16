@@ -4,32 +4,6 @@ export default function HomeTopBanner({bannersData}) {
   return (
     <div className="sp-container-right">
         <div className="sp-container-right-content">
-            <div className="sp-widget-container">
-                <form>
-                    <div className="input-group">
-                        <div className="search-box">
-                            <input
-                                type="text"
-                                placeholder="Search products here ..."
-                            />
-                        </div>
-
-                        <select>
-                            <option>All Categories</option>
-                            <option>Men</option>
-                            <option>Women</option>
-                            <option>Footwear</option>
-                            <option>Beauty</option>
-                        </select>
-
-                        <button type="submit">
-                            Search
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            
             <div className="sp-content-container">
                 <div className="sp-home-banner-widget-container">
                     <div className="sp-home-banner-widget">

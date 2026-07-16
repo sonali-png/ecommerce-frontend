@@ -1,0 +1,16 @@
+.filterBar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  background-color: var(--white);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.filterSearch { flex: 1; }
+.filterSelect { width: 200px; }
+
+@media (max-width: 768px) {
+  .filterBar { flex-direction: column; }
+  .filterSelect { width: 100%; }
+}

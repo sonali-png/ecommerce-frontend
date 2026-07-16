@@ -5,15 +5,15 @@ import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
 import Footer from "../Footer";
 
-import Styles from "../../css/Admin/Style.module.css";
+import CommonStyles from "../../css/Admin/Common.module.css";
 
 export default function AdminLayout() {
   return (
     <>
-      <div className={Styles.mainWrapper}>
+      <div className={CommonStyles.mainWrapper}>
         <AdminSidebar />
-
-        <div className={`${Styles.mainContent} ${Styles.noSidebarOffset}`}>
+        {/* ${CommonStyles.noSidebarOffset} */}
+        <div className={`${CommonStyles.mainContent} `}>
           <AdminHeader />
           <Outlet />
         </div>

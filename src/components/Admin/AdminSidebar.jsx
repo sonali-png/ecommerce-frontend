@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAdminAuth } from "../../context/AdminAuthContext";
-import styles from "../../css/Admin/Style.module.css";
+import CommonStyles from "../../css/Admin/Common.module.css";
+import SidebarStyles from "../../css/Admin/Sidebar.module.css";
 
 export default function AdminSidebar() {
   const { admin } = useAdminAuth();
@@ -46,22 +47,22 @@ export default function AdminSidebar() {
 
   return (
     <>
-      <div className={styles.sidebarOverlay}></div>
+      <div className={SidebarStyles.sidebarOverlay}></div>
 
-      <aside className={styles.sidebar}>
-        <div className={styles.logoArea}>
-          <div className={styles.logo}>AdminPanel</div>
+      <aside className={SidebarStyles.sidebar}>
+        <div className={SidebarStyles.logoArea}>
+          <div className={SidebarStyles.logo}>AdminPanel</div>
 
-          <button className={styles.closeBtn}>
+          <button className={CommonStyles.closeBtn}>
             &times;
           </button>
         </div>
 
-        <nav className={styles.navMenu}>
+        <nav className={SidebarStyles.navMenu}>
           {menus.map((menu) => (
             <div key={menu.key}>
               <div
-                className={styles.menuTitle}
+                className={SidebarStyles.menuTitle}
                 onClick={() =>
                   setOpen(open === menu.key ? "" : menu.key)
                 }
@@ -70,15 +71,15 @@ export default function AdminSidebar() {
               </div>
 
               {open === menu.key && (
-                <div className={styles.submenu}>
+                <div className={SidebarStyles.submenu}>
                   {menu.links.map((link) => (
                     <NavLink
                       key={link.path}
                       to={link.path}
                       end={link.end}
                       className={({ isActive }) =>
-                        `${styles.link} ${
-                          isActive ? styles.activeLink : ""
+                        `${CommonStyles.link} ${
+                          isActive ? CommonStyles.activeLink : ""
                         }`
                       }
                     >
@@ -90,7 +91,7 @@ export default function AdminSidebar() {
             </div>
           ))}
 
-          <a href="#" className={styles.logout}>
+          <a href="#" className={SidebarStyles.logout}>
             Logout
           </a>
         </nav>

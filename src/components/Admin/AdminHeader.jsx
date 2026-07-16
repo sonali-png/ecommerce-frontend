@@ -2,6 +2,9 @@ import adminApi from '../../api/adminApi.js';
 import { useNavigate } from 'react-router-dom';
 import { useAdminAuth } from "../../context/AdminAuthContext";
 import AdminSidebar from './AdminSidebar.jsx';
+import CommonStyles from "../../css/Admin/Common.module.css";
+import HeaderStyles from "../../css/Admin/Header.module.css";
+import SidebarStyles from "../../css/Admin/Sidebar.module.css";
 
 export default function AdminHeader() {
     const navigate = useNavigate();
@@ -20,13 +23,13 @@ export default function AdminHeader() {
     }
     return (
         <>
-            <header class="header">
-              <button class="menu-btn" id="sidebarOpenBtn">&#9776;</button>
+            <header className={HeaderStyles.header}>
+              <button className={CommonStyles.menuBtn} id={`${SidebarStyles.sidebar} ${SidebarStyles.open}`}>&#9776;</button>
               {/* <h2>Dashboard</h2> */}
               { admin ? 
-              <div class="user-profile">
+              <div className={HeaderStyles.userProfile}>
                 <span>{admin.userId}</span>
-                <div class="avatar"></div>
+                <div className={HeaderStyles.avatar}></div>
               </div> : ""
               }
             </header>
