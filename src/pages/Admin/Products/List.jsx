@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import useCommonList from "../../../hooks/useCommonList";
 import FilterBar from "../FilterBar";
 import DataTable from "../DataTable";
-import { productConfig } from "../Config/productConfig";
+import { productConfig } from "../config/productConfig";
 
-export default function ProductList() {
+export default function ProductsList() {
     const [filters, setFilters] = useState({});
     const [page, setPage] = useState(1);
     const navigate = useNavigate();

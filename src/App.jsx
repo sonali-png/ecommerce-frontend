@@ -39,32 +39,37 @@ const AdminLogin = lazy(() =>
 );
 
 const Dashboard = lazy(() =>
-  import("./components/Admin/Dashboard.jsx")
+  import("./pages/Admin/Dashboard.jsx")
 );
 
-const ProductList = lazy(() =>
-  import("./components/Admin/Products/List.jsx")
+const ProductsList = lazy(() =>
+  import("./pages/Admin/Products/List.jsx")
 );
 
 const ProductAddEdit = lazy(() =>
-  import("./components/Admin/Products/AddEdit.jsx")
+  import("./pages/Admin/Products/AddEdit.jsx")
 );
 
-const CategoryList = lazy(() =>
-  import("./components/Admin/Category/List.jsx")
+const CategoriesList = lazy(() =>
+  import("./pages/Admin/Categories/List.jsx")
 );
 
 const CategoryAddEdit = lazy(() =>
-  import("./components/Admin/Category/AddEdit.jsx")
+  import("./pages/Admin/Categories/AddEdit.jsx")
 );
 
-const AttributeList = lazy(() =>
-  import("./components/Admin/Attributes/List.jsx")
+const AttributesList = lazy(() =>
+  import("./pages/Admin/Attributes/List.jsx")
 );
 
 const AttributeAddEdit = lazy(() =>
-  import("./components/Admin/Attributes/AddEdit.jsx")
+  import("./pages/Admin/Attributes/AddEdit.jsx")
 );
+
+const UsersList = lazy(() =>
+  import("./pages/Admin/Users/List.jsx")
+);
+
 
 function Loader() {
   return (
@@ -119,22 +124,27 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
 
               <Route path="products">
-                <Route index element={<ProductList />} />
+                <Route index element={<ProductsList />} />
                 <Route path="add" element={<ProductAddEdit />} />
                 <Route path="edit/:id" element={<ProductAddEdit />} />
               </Route>
 
               <Route path="categories">
-                <Route index element={<CategoryList />} />
+                <Route index element={<CategoriesList />} />
                 <Route path="add" element={<CategoryAddEdit />} />
                 <Route path="edit/:id" element={<CategoryAddEdit />} />
               </Route>
 
               <Route path="attributes">
-                <Route index element={<AttributeList />} />
+                <Route index element={<AttributesList />} />
                 <Route path="add" element={<AttributeAddEdit />} />
                 <Route path="edit/:id" element={<AttributeAddEdit />} />
               </Route>
+
+              <Route path="users">
+                <Route index element={<UsersList />} />
+              </Route>
+
             </Route>
           </Route>
           {/* Admin Login */}

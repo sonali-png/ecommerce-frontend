@@ -1,5 +1,7 @@
 import SelectFilter from "./SelectFilter";
+import InputFilter from "./InputFilter"; 
 import FilterStyles from "../../css/Admin/Filter.module.css";
+import CommonStyles from "../../css/Admin/Common.module.css";
 
 export default function FilterBar({
     controls,
@@ -15,29 +17,20 @@ export default function FilterBar({
 
     return (
         <div className={FilterStyles.filterBar}>
-
             {controls.map(control => {
-
                 switch(control.type){
-
                     case "search":
-
                         return (
-                            <input
-                                key={control.name}
+                            <InputFilter
+                                name={control.name}
                                 placeholder={control.placeholder}
-                                value={filters[control.name] || ""}
-                                onChange={(e)=>
-                                    onFilterChange(
-                                        control.name,
-                                        e.target.value
-                                    )
-                                }
+                                filters={filters}
+                                control={control}
+                                onFilterChange={onFilterChange}
                             />
                         );
 
                     case "select":
-
                         return (
                             <SelectFilter
                                 key={control.name}
@@ -46,12 +39,12 @@ export default function FilterBar({
                                 onFilterChange={onFilterChange}
                             />
                         );
-
+                    
                 }
 
             })}
 
-            <button onClick={()=>handleClear()}>
+            <button className={CommonStyles.btn} onClick={()=>handleClear()}>
                 Clear
             </button>
 

@@ -101,7 +101,7 @@ export default function DataTable({
                                         case "actions":
 
                                         return(
-                                            <td key={colIndex} className={CommonStyles.textRight}>
+                                            <td key={colIndex}>
                                                 <button className={`${CommonStyles.btn} ${CommonStyles.btnSm} ${CommonStyles.btnOutline}`} onClick={()=>onEdit(row)} >
                                                     Edit
                                                 </button>

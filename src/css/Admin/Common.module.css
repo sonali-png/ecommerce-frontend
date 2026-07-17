@@ -152,7 +152,7 @@ textarea.formControl { resize: vertical; min-height: 100px; }
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   max-width: 800px;
 }
-.formHeader { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
+.formHeader { margin-bottom: 10px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
 .formHeader h3 { font-size: 1.5rem; margin-bottom: 4px; }
 
 .formGrid {
@@ -160,9 +160,10 @@ textarea.formControl { resize: vertical; min-height: 100px; }
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
-.formGroup { display: flex; flex-direction: column; gap: 8px; }
-.formLabel { font-size: 1.2rem; font-weight: 500; color: var(--text-main); }
-
+.formGroup { display: flex; flex-direction: column; gap: 8px; margin: 20px 0;}
+.formGroup.singleCheckbox { display: block }
+.formLabel { font-size: 1rem; font-weight: 500; color: var(--text-main); }
+.formGroup.singleCheckbox .formLabel {margin-right: 15px;}
 .radioGroup { display: flex; gap: 16px; align-items: center; height: 100%; }
 .radioLabel, .checkboxLabel {
   display: flex;
@@ -170,6 +171,12 @@ textarea.formControl { resize: vertical; min-height: 100px; }
   gap: 8px;
   font-size: 1.2rem;
   cursor: pointer;
+}
+.checkboxGroup {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    height: 100%;
 }
 
 .formActions {
@@ -180,6 +187,7 @@ textarea.formControl { resize: vertical; min-height: 100px; }
   padding-top: 20px;
   border-top: 1px solid var(--border-color);
 }
+
 
 @media (max-width: 768px) {
   .formGrid { grid-template-columns: 1fr; }
