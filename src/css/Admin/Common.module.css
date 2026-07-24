@@ -138,13 +138,33 @@
   outline: none;
   transition: border-color 0.2s;
 }
-.formControl:focus { border-color: var(--accent); }
-textarea.formControl { resize: vertical; min-height: 100px; }
+.formControl:focus { 
+  border-color: var(--accent); 
+}
+textarea.formControl { 
+  resize: vertical; 
+  min-height: 100px; 
+}
 
 
-.tableUserCell { display: flex; align-items: center; gap: 12px; }
-.avatarSm { width: 32px; height: 32px; background-color: #cbd5e1; border-radius: 50%; }
-
+.tableUserCell { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+}
+.avatarSm { 
+  width: 32px; 
+  height: 32px; 
+  background-color: #cbd5e1; 
+  border-radius: 50%; 
+}
+.actionIcons {
+  width: 90%;
+}
+.actionGroup {
+  display: flex;
+  justify-content: space-between;
+}
 .formContainer {
   background-color: var(--white);
   padding: 32px;
@@ -187,8 +207,24 @@ textarea.formControl { resize: vertical; min-height: 100px; }
   padding-top: 20px;
   border-top: 1px solid var(--border-color);
 }
-
-
+.loaderOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+.error{
+  color: #dc2626;
+}
+.addField {
+  color: #15803d;
+}
+.removeField {
+  color: #dc2626;
+}
 @media (max-width: 768px) {
   .formGrid { grid-template-columns: 1fr; }
   .formContainer { padding: 20px; }

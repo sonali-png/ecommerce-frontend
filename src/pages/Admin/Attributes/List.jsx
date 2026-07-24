@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCommonList from "../../../hooks/useCommonList";
-import FilterBar from "../FilterBar";
-import DataTable from "../DataTable";
-import { attributeConfig } from "../config/attributeConfig";
+import FilterBar from "../../../components/Admin/FilterBar";
+import DataTable from "../../../components/Admin/DataTable";
+import { attributeConfig } from "../../../config/attributeConfig";
 
 export default function AttributesList() {
     const [filters, setFilters] = useState({});
@@ -43,7 +43,7 @@ export default function AttributesList() {
             />
 
             <DataTable 
-                columns={attributesConfig.columns}
+                columns={attributeConfig.columns}
                 collectionName="attributes"
                 records={attributes}
                 loading={loading}

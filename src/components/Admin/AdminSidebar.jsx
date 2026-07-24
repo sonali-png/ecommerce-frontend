@@ -40,7 +40,7 @@ export default function AdminSidebar() {
       title: "Users",
       links: [
         { label: "List", path: "/admin/users", end: true },
-        { label: "Add", path: "/admin/users/add" },
+        // { label: "Add", path: "/admin/users/add" },
       ],
     },
   ];

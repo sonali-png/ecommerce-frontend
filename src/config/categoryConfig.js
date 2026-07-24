@@ -45,7 +45,6 @@ export const categoryConfig = {
     ],
     initialValues: {
         name: "",
-        slug: "",
         description: "",
         parentCategory: "",
         attributeIds: []
@@ -55,12 +54,6 @@ export const categoryConfig = {
             type: "text",
             name: "name",
             label: "Category Name"
-        },
-
-        {
-            type: "text",
-            name: "slug",
-            label: "Slug"
         },
 
         {
@@ -95,13 +88,9 @@ export const categoryConfig = {
         }
     ],
     beforeSubmit(formData) {
-
         return {
-
             ...formData,
-
             isParent: undefined,
-
             parentCategory: formData.isParent
                 ? null
                 : formData.parentCategory
@@ -116,4 +105,18 @@ export const categoryConfig = {
         };
 
     },
+    validate(formData) {
+        const errors = {};
+
+        if (!formData.name?.trim()) {
+            errors.name = "Name is required.";
+        }
+        if (!formData.isParent && formData.parentCategory === "") {
+            errors.parentCategory = "Please select parent category";
+        }
+        if (!formData.attributeIds || formData.attributeIds.length === 0) {
+            errors.attributeIds = "Please select attributes";
+        }
+        return errors;
+    }
 };

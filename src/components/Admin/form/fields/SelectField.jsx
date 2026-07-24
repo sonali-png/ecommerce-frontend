@@ -7,7 +7,9 @@ export default function SelectField({
     field,
     value,
     formData,
-    setFormData
+    setFormData,
+    error,
+    clearError
 }) {
 
     const { records } = useCommonList(
@@ -26,12 +28,14 @@ export default function SelectField({
             <select
                 className={`${CommonStyles.formControl} ${FilterStyles.filterSelect}`}
                 value={value || ""}
-                onChange={(e) =>
+                onChange={(e) => {
+                    clearError(field.name)
                     setFormData(prev => ({
                         ...prev,
                         [field.name]: e.target.value
-                    }))
+                    }))}
                 }
+                    
             >
                 <option value="">
                     Select {field.label}
@@ -47,7 +51,11 @@ export default function SelectField({
                 ))}
 
             </select>
-
+            {error && (
+                <div className={CommonStyles.error}>
+                    * {error}
+                </div>
+            )}
         </div>
     );
 }

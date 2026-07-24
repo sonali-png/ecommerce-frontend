@@ -6,13 +6,22 @@ export const userConfig = {
         },
         {
             header:"Name",
-            field:"name"
+            render: (row) => {
+                const first = row.firstName?.trim() || "";
+                const last = row.lastName?.trim() || "";
+
+                return `${first} ${last}`.trim() || "";
+            }
+        },
+        {
+            header:"UserID",
+            field:"userId"
         },
         {
             header:"Email",
             field:"email"
         },
-        {
+        { 
             header:"Status",
             type:"status",
             field:"status"

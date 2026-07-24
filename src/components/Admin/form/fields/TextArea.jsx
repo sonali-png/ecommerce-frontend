@@ -2,7 +2,9 @@ import CommonStyles from "../../../../css/Admin/Common.module.css"
 export default function TextArea({
     field,
     value,
-    setFormData
+    setFormData,
+    error,
+    clearError
 }) {
 
     return (
@@ -13,14 +15,19 @@ export default function TextArea({
             <textarea
                 className={CommonStyles.formControl}
                 value={value || ""}
-                onChange={(e) =>
+                onChange={(e) =>{
+                    clearError(field.name)
                     setFormData(prev => ({
                         ...prev,
                         [field.name]: e.target.value
-                    }))
+                    }))}   
                 }
             />
-
+            {error && (
+                <div className={CommonStyles.error}>
+                    * {error}
+                </div>
+            )}
         </div>
     );
 }

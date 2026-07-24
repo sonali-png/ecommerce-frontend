@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCommonList from "../../../hooks/useCommonList";
-import FilterBar from "../FilterBar";
-import DataTable from "../DataTable";
-import { productConfig } from "../config/productConfig";
+import DataTable from "../../../components/Admin/DataTable";
+import FilterBar from "../../../components/Admin/FilterBar";
+import { productConfig } from "../../../config/productConfig";
 
 export default function ProductsList() {
     const [filters, setFilters] = useState({});

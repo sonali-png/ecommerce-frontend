@@ -3,7 +3,9 @@ import CommonStyles from "../../../../css/Admin/Common.module.css"
 export default function CheckboxField({
     field,
     value,
-    setFormData
+    setFormData,
+    error,
+    clearError
 }) {
 
     return (
@@ -16,14 +18,20 @@ export default function CheckboxField({
             <input
                     type="checkbox"
                     checked={!!value}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                        clearError(field.name)
                         setFormData(prev => ({
                             ...prev,
                             [field.name]: e.target.checked
-                        }))
+                        }))}
                     }
+                        
                 />
-
+            {error && (
+                <div className={CommonStyles.error}>
+                    * {error}
+                </div>
+            )}
         </div>
     );
 }

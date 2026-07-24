@@ -4,9 +4,10 @@ import CommonStyles from "../../../../css/Admin/Common.module.css";
 export default function CheckboxGroup({
     field,
     value = [],
-    setFormData
+    setFormData,
+    error,
+    clearError
 }) {
-
     const { records } = useCommonList(
         field.collection,
         {},
@@ -31,7 +32,7 @@ export default function CheckboxGroup({
                 { [field.valueField]: selectedValue }
             ];
         }
-
+        clearError(field.name)
         setFormData(prev => ({
             ...prev,
             [field.name]: updatedValue
@@ -75,7 +76,11 @@ export default function CheckboxGroup({
                 })}
 
             </div>
-
+            {error && (
+                <div className={CommonStyles.error}>
+                    * {error}
+                </div>
+            )}
         </div>
     );
 }

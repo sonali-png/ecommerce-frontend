@@ -113,9 +113,12 @@ export default function DataTable({
                                         );
 
                                         default:
+                                            const value = col.render
+                                                            ? col.render(row)
+                                                            : row[col.field];
                                             return(
                                                 <td key={colIndex}>
-                                                    {row[col.field]}
+                                                    {value}
                                                 </td>
                                             );
 

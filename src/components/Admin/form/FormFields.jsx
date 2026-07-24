@@ -9,10 +9,10 @@ export default function FormFields({
     field,
     value,
     formData,
-    setFormData
+    setFormData,
+    error,
+    clearError
 }) {
-
-    // Hide field if visible() returns false
     if (field.visible && !field.visible(formData)) {
         return null;
     }
@@ -21,7 +21,9 @@ export default function FormFields({
         field,
         value,
         formData,
-        setFormData
+        setFormData,
+        error,
+        clearError
     };
 
     switch (field.type) {
@@ -30,7 +32,7 @@ export default function FormFields({
         case "email":
         case "password":
         case "number":
-            return <Text {...commonProps} />;
+            return <Text {...commonProps} /> ;
 
         case "textarea":
             return <TextArea {...commonProps} />;
