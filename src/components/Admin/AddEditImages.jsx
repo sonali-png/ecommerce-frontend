@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import CommonStyles from "../../../css/Admin/Common.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
 
 export default function AddEditImages({
   selectedColors,
   formData,
-  setFormData
+  setFormData,
+  colorsData1
 }) {
+    console.log("Inside add Edit images");
   const [activeColor, setActiveColor] = useState(null);
 
   const toggleAccordion = (color) => {
@@ -47,23 +44,22 @@ export default function AddEditImages({
       )
     }));
   };
-
+  
   return (
-    <>
-      <div className={CommonStyles.formGroup}>
-          <label className={CommonStyles.formLabel}>Add or Edit images</label>
-      </div>
-      {selectedColors.map((color) => {
+    
+    <div className="column2">
+      <h3>Add Images by Color</h3>
+    {console.log(colorsData1)}
+      {colorsData1.map((color) => {
         const colorData = formData?.colorImages?.find(c => c.color === color);
 
         const isOpen = activeColor === color;
-        
 
         return (
-        <div className={CommonStyles.formGroup}>
-          <div key={color} className={CommonStyles.accordionItem}>
+          <div key={color} className="accordion-item">
+
             <div
-              className={CommonStyles.accordionHeader}
+              className="accordion-header"
               onClick={() => toggleAccordion(color)}
             >
               <span>{color}</span>
@@ -71,11 +67,10 @@ export default function AddEditImages({
             </div>
 
             {isOpen && (
-              <div className={CommonStyles.accordionBody}>
+              <div className="accordion-body">
                 
                   <>
                     <input
-                      className={CommonStyles.formControl}
                       type="file"
                       multiple
                       onChange={(e) => {
@@ -86,11 +81,11 @@ export default function AddEditImages({
                       }}
                     />
 
-                    <div className={CommonStyles.imageList}>
+                    <div className="image-list">
                       {colorData.images.map((img, idx) => (
                         <div
                           key={idx}
-                          className={CommonStyles.imageItem}
+                          className="image-item"
                         >
                           <img
                             src={
@@ -108,10 +103,7 @@ export default function AddEditImages({
                               removeImage(color, idx)
                             }
                           >
-                            <FontAwesomeIcon 
-                                icon={faXmark} 
-                                style={{fontSize:"1rem"}}                            
-                            />
+                            ❌
                           </button>
                         </div>
                       ))}
@@ -120,9 +112,8 @@ export default function AddEditImages({
               </div>
             )}
           </div>
-        </div>
         );
       })}
-    </>
+    </div>
   );
 }

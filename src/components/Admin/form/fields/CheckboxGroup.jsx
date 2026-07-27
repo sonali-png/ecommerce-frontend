@@ -6,33 +6,66 @@ export default function CheckboxGroup({
     value = [],
     setFormData,
     error,
-    clearError
+    clearError = () => {},
+    options = null,
+    onChange,
+    listStyle=""
 }) {
+
+    // Fetch records only if options are not provided
     const { records } = useCommonList(
         field.collection,
         {},
-        !field.collection
+        !field.collection || !!options
     );
+
+    const data = options || records;
+
+    const isObjectArray =
+        value.length > 0 && typeof value[0] === "object";
 
     const handleChange = (selectedValue) => {
 
-        const exists = value.some(
-            item => item[field.valueField] === selectedValue
-        );
-
         let updatedValue;
+        let checked;
 
-        if (exists) {
-            updatedValue = value.filter(
-                item => item[field.valueField] !== selectedValue
+        if (isObjectArray) {
+
+            const exists = value.some(
+                item => item[field.valueField] === selectedValue
             );
+
+            checked = !exists;
+
+            updatedValue = exists
+                ? value.filter(
+                      item => item[field.valueField] !== selectedValue
+                  )
+                : [
+                      ...value,
+                      { [field.valueField]: selectedValue }
+                  ];
+
         } else {
-            updatedValue = [
-                ...value,
-                { [field.valueField]: selectedValue }
-            ];
+
+            const exists = value.includes(selectedValue);
+
+            checked = !exists;
+
+            updatedValue = exists
+                ? value.filter(item => item !== selectedValue)
+                : [...value, selectedValue];
         }
-        clearError(field.name)
+
+        // For custom handling (Variants etc.)
+        if (onChange) {
+            onChange(updatedValue, selectedValue, checked);
+            return;
+        }
+
+        // Default form handling
+        clearError(field.name);
+
         setFormData(prev => ({
             ...prev,
             [field.name]: updatedValue
@@ -42,45 +75,62 @@ export default function CheckboxGroup({
     return (
         <div className={CommonStyles.formGroup}>
 
-            <label className={CommonStyles.formLabel}>{field.label}</label>
+            {field.label && (
+                <label className={CommonStyles.formLabel}>
+                    {field.label}
+                </label>
+            )}
 
-            <div className={CommonStyles.checkboxGroup}>
+            <div className={
+                `${
+                    listStyle === 'grid' ? 
+                    CommonStyles.checkboxGroupGrid :
+                    CommonStyles.checkboxGroup
+                }`
+            }>
 
-                {records.map(record => {
+                {data.map(record => {
 
-                    const checked = value.some(
-                        item =>
-                            item[field.valueField] ===
-                            record[field.valueField]
-                    );
+                    const recordValue =
+                        record[field.valueField];
+
+                    const recordLabel =
+                        record[field.labelField];
+
+                    const checked = isObjectArray
+                        ? value.some(
+                              item =>
+                                  item[field.valueField] ===
+                                  recordValue
+                          )
+                        : value.includes(recordValue);
 
                     return (
                         <label
-                            key={record[field.valueField]}
+                            key={recordValue}
                             className={CommonStyles.checkboxLabel}
                         >
                             <input
                                 type="checkbox"
                                 checked={checked}
                                 onChange={() =>
-                                    handleChange(record[field.valueField])
+                                    handleChange(recordValue)
                                 }
                             />
 
-                            <span>
-                                {record[field.labelField]}
-                            </span>
-
+                            <span>{recordLabel}</span>
                         </label>
                     );
                 })}
 
             </div>
+
             {error && (
                 <div className={CommonStyles.error}>
                     * {error}
                 </div>
             )}
+
         </div>
     );
 }
