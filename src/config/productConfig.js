@@ -27,6 +27,11 @@ export const productConfig = {
             header:"Brand",
             field:"brandSlug"
         },
+        {
+            header:"Product Code",
+            field:"details.productCode",
+            type: "nested"
+        },
 
         {
             header:"Status",
@@ -122,17 +127,24 @@ export const productConfig = {
         if (!formData?.categoryId) {
             errors.categoryId = "Please select category";
         }
+        console.log("FORM DATA INSIDE CONFIG ", formData);
+        console.log("formData?.brandId" , formData?.brandId);
+        console.log(formData?.brandId.length);
+        console.log(formData?.brandId.length);
         if (!formData?.brandId) {
             errors.brandId = "Please select brand";
         }
         if (!formData?.details?.genericName) {
             errors.genericName = "Generic Name is required";
         }
+        console.log("Inside validate", formData);
+        console.log(formData?.details?.countryOfOrigin);
         if (!formData?.details?.countryOfOrigin) {
             errors.countryOfOrigin = "Please select country";
         }
-        if (!formData?.details?.manufacturerName) {
-            errors.manufacturerName = "Manufacturer Name is required";
+        console.log(formData?.details?.manufacturedBy);
+        if (!formData?.details?.manufacturedBy) {
+            errors.manufacturedBy = "Manufacturer Name is required";
         }
         if (!formData?.details?.manufacturerAddress) {
             errors.manufacturerAddress = "Manufacturer Address is required";

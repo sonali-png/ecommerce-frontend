@@ -15,7 +15,7 @@ export default function AddEdit() {
   const {records:categories } = useCommonList("categories");
   const {records:brands } = useCommonList("brands");
   const {records:colors } = useCommonList("colors");
-  const {records:product  } = useCommonList("products", id);
+  const {records:product  } = useCommonList("products", {"id" : id});
   const { addRecord, updateRecord } = useCrud();
   const [selectedColors, setColors] = useState([]); 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -44,7 +44,7 @@ export default function AddEdit() {
       productCode:"",
       genericName: "",
       countryOfOrigin: "",
-      manufacturerName: "",
+      manufacturedBy: "",
       manufacturerAddress: "",
       packedBy:"",
       packerAddress:""
@@ -67,13 +67,15 @@ export default function AddEdit() {
         details: product?.details || {
           genericName: "",
           countryOfOrigin: "",
-          manufacturerName: "",
+          manufacturedBy: "",
           manufacturerAddress: "",
           packedBy: "",
           packerAddress: ""
         },
       });
-      setColors((product?.colorImages || []).map(c => c.color));
+      if(product?.colorImages?.length > 0) {
+        setColors((product?.colorImages || []).map(c => c?.color));
+      }
     }
   }, [id, product]);
 
@@ -108,18 +110,30 @@ export default function AddEdit() {
       attributes: catAttributeData
     }));
   };
+  const updateErrors = (fieldName) => {
+    setErrors((prev)=>{
+      const newErrors = {...prev};
+      delete newErrors[fieldName];
+      return newErrors;
+    })
+  }
 
 
   // ✅ Submit
   const handleSubmit = async (e) => {
+    console.log("FORM DATA BEFORE SUBMIT:", formData);
     e.preventDefault();
+    
     if (productConfig.validate) {
+      console.log("FORM DATA AFTER SUBMIT:", formData);
       const validationErrors = productConfig.validate(formData);
-      console.log(validationErrors);
+      console.log(`Val error `, validationErrors);
       if (Object.keys(validationErrors).length > 0) {
           setErrors(validationErrors);
+          console.log(`Errors `, errors);
+          return false;
       }
-      return false;
+      
     }
     const payload = new FormData();  
     const structuredData = {
@@ -178,7 +192,10 @@ export default function AddEdit() {
                 className={CommonStyles.formControl}
                 placeholder="Name"
                 value={formData.name}
-                onChange={(e)=>setFormData({...formData,name:e.target.value})}
+                onChange={(e)=> { 
+                  setFormData(prev => ({...prev,name:e.target.value}))
+                  updateErrors("name")
+                }}
               />
               <div className={CommonStyles.error}>
                 {errors?.name ? `* ${errors.name}` : ''}
@@ -219,9 +236,12 @@ export default function AddEdit() {
                   <label className={CommonStyles.formLabel}>Select brand</label>
                   <select
                     className={CommonStyles.formControl}
-                    value={formData.brandId}
+                    value={formData?.brandId || ""}
                     onChange={(e) =>
-                      setFormData(prev => ({ ...prev,  brandId: e.target.value }))
+                      {
+                        setFormData(prev => ({ ...prev,  brandId: e.target.value }))
+                        updateErrors("brandId")
+                      }
                     }
                   >
                     <option value="">Select Brand</option>
@@ -259,7 +279,7 @@ export default function AddEdit() {
                     type="text"
                     placeholder="Generic Name"
                     className={CommonStyles.formControl}
-                    value={formData?.details?.genericName}
+                    value={formData?.details?.genericName || ""}
                     onChange={(e)=>
                       setFormData(prev => ({
                         ...prev,
@@ -279,22 +299,23 @@ export default function AddEdit() {
                   <label>Country of origin</label>
                   <select 
                     className={CommonStyles.formControl}
-                    value={formData?.details?.countryOfOrigin}
+                    value={formData?.details?.countryOfOrigin || ""}
                     onChange={(e)=>
-                      setFormData({
+                      setFormData(prev => ({
                         ...prev,
                         details: {
                           ...prev.details,
                           countryOfOrigin: e.target.value
                         }
-                      })
+                      }))
                     }
                   >
                     <option value="">Select Country</option>
                     {
                       countryConfig.countries.map(c => {
                         return (
-                          <option key={c.shortCode} value={c.shortCode}>{c.name}</option>
+                          <option 
+                            key={c.shortCode} value={c.shortCode}>{c.name}</option>
                         );
                       })
                     }
@@ -310,18 +331,19 @@ export default function AddEdit() {
                     className={CommonStyles.formControl} 
                     type="text" 
                     placeholder="Manufacturer Name"
+                    value={formData?.details?.manufacturedBy || ""}
                     onChange={(e)=> 
-                      setFormData({
+                      setFormData( prev => ({
                         ...prev,
                         details: {
-                          ...prev.manufacturerName,
-                          manufacturerName: e.target.value
+                          ...prev.details,
+                          manufacturedBy: e.target.value
                         }
-                      })
+                      }))
                     }
                   />
                   <div className={CommonStyles.error}>
-                    {errors?.manufacturerName ? `* ${errors.manufacturerName}` : ''}
+                    {errors?.manufacturedBy ? `* ${errors.manufacturedBy}` : ''}
                   </div>
                 </div>
 
@@ -330,18 +352,19 @@ export default function AddEdit() {
                   <textarea
                     className={CommonStyles.formControl} 
                     placeholder="Manufacturer Address"
+                    value={formData?.details?.manufacturerAddress || ""}
                     onChange={(e)=> 
-                      setFormData({
+                      setFormData( prev => ({
                         ...prev,
                         details: {
-                          ...prev.manufacturerAddress,
+                          ...prev.details,
                           manufacturerAddress: e.target.value
                         }
-                      })
+                      }))
                     }
                   ></textarea>
                   <div className={CommonStyles.error}>
-                    {errors?.manufacturerAddress ? `* ${errors.genericName}` : ''}
+                    {errors?.manufacturerAddress ? `* ${errors.manufacturerAddress}` : ''}
                   </div>
                 </div>
                 
@@ -351,14 +374,15 @@ export default function AddEdit() {
                     className={CommonStyles.formControl} 
                     type="text" 
                     placeholder="Packer Name"
+                    value={formData?.details?.packedBy || ""}
                     onChange={(e)=> 
-                      setFormData({
+                      setFormData(prev => ({
                         ...prev,
                         details: {
-                          ...prev.packerName,
-                          packerName: e.target.value
+                          ...prev.details,
+                          packedBy: e.target.value
                         }
-                        })
+                      }))
                     }
                   />
                   <div className={CommonStyles.error}>
@@ -372,14 +396,15 @@ export default function AddEdit() {
                     className={CommonStyles.formControl} 
                     type="text" 
                     placeholder="Packer Address"
+                    value={formData?.details?.packerAddress || ""}
                     onChange={(e)=> 
-                      setFormData({
-                        ...prev,
+                      setFormData(prev => ({
+                        ...prev, 
                         details: {
-                          ...prev.packerAddress,
+                          ...prev.details,
                           packerAddress: e.target.value
                         }
-                      })
+                      }))
                     }
                   ></textarea>
                   <div className={CommonStyles.error}>
@@ -395,7 +420,7 @@ export default function AddEdit() {
             selectedColors.length > 0 ?
               <div className={CommonStyles.rightWrapper}>
                 <AddEditImages selectedColors={selectedColors} formData={formData} setFormData={setFormData}/>
-              </div>
+              </div> 
             : ""
           }
         </div>

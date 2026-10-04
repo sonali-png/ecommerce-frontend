@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../css/pdGallery.css"
+import pdGalleryCss from "../css/pdGallery.module.css";
 export default function ProductImageGallery({ colorImages=[], selectedColor="" }) {
   const images = colorImages[selectedColor] || [
     "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260311/PXxk/69b14d554970ce6a6e3a1e3e/-473Wx593H-703144763-orange-MODEL.jpg",
@@ -16,28 +16,29 @@ export default function ProductImageGallery({ colorImages=[], selectedColor="" }
   }, [selectedColor]);
 
   return (
-    <div className="product-gallery">
-      {/* Thumbnails */}
-      <div className="thumbnail-container">
+    <div className={pdGalleryCss.productGallery}>
+      <div className={pdGalleryCss.thumbnailContainer}>
         {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt=""
-            className={`thumbnail ${
-              activeImage === img ? "active" : ""
-            }`}
-            onClick={() => setActiveImage(img)}
-          />
+          <div className={pdGalleryCss.thumbnails}>
+            <img
+              key={index}
+              src={img}
+              alt=""
+              className={`thumbnail ${
+                activeImage === img ? "active" : ""
+              }`}
+              onClick={() => setActiveImage(img)}
+            />
+          </div>
         ))}
       </div>
 
       {/* Main Image */}
-      <div className="main-image-container">
+      <div className={pdGalleryCss.mainImageContainer}>
         <img
           src={activeImage}
           alt="Product"
-          className="main-image"
+          className={pdGalleryCss.mainImage}
         />
       </div>
     </div>

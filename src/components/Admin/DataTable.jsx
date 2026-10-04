@@ -87,6 +87,7 @@ export default function DataTable({
                                                 </td>
                                         );
 
+
                                         case "status":
 
                                             return(
@@ -111,11 +112,23 @@ export default function DataTable({
                                                 </button>
                                             </td>
                                         );
+                                            return(
+                                                <td key={colIndex}>
+                                                    {value1}
+                                                </td>
+                                            );
+                                        break;
 
                                         default:
                                             const value = col.render
-                                                            ? col.render(row)
-                                                            : row[col.field];
+                                                    ? col.render(row)
+                                                    : (
+                                                        col.type === "nested"
+                                                            ? col.field
+                                                                .split(".")
+                                                                .reduce((obj, key) => obj?.[key], row)
+                                                            : row[col.field]
+                                                    );
                                             return(
                                                 <td key={colIndex}>
                                                     {value}

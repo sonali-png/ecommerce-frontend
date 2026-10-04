@@ -1,44 +1,59 @@
-import {useMemo} from 'react'
-import useCommonList from '../hooks/useCommonList'
-import { useParams } from 'react-router-dom';
+import { useMemo } from "react";
+import { useParams, Link } from "react-router-dom";
+
+import useCommonList1 from "../hooks/useCommonList1";
 import ProductImageGallery from "../components/ProductImageGallery";
-import ProductInfo from './ProductInfo';
-import { Link } from 'react-router-dom';
+import ProductInfo from "./ProductInfo";
+
+import LayoutCss from "../css/newLayoutCopy.module.css";
+
 export default function ProductDetail() {
   const { productCode } = useParams();
+
   const whereClause = useMemo(
     () => ({
-      "details.productCode": productCode
+      "details.productCode": productCode,
     }),
     [productCode]
   );
-  const {records:data, loading} = useCommonList("products", null, whereClause);
-  const {records:colorsData} = useCommonList("colors");
-  const breadCrumbPath = data[0]?.categoryId?.path || []; 
-  // console.log(data[0].categoryId.path.map((e) => console.log(`hdsfhgdsgf ${e}`)))
+
+  const { records: data, loading } = useCommonList1(
+    "products",
+    null,
+    whereClause
+  );
+
+  const { records: colorsData } = useCommonList1("colors");
+
+  const breadCrumbPath = data[0]?.categoryId?.path || [];
+
   return (
-      <>
-        <div className='bgf-wrapper'>
-          <div className="container">
-            <section className="sp-section">
-              <div className='breadcrumb-section'>
-                <ul className='breadcrumb-ul'>
-                  { 
-                    breadCrumbPath.length > 0 && breadCrumbPath.map((d) => 
-                    <li className='breadcrumb-li'>
-                        <Link to={`/`}> {d} </Link> /
-                      </li>
-                    )
-                  }
-                </ul>
-              </div>
-              <div className='sp-detail-wrapper'>
-                <ProductImageGallery />      
-                <ProductInfo product={data} colorsData={colorsData} />
-              </div> 
-            </section>
+    <>
+      <div className={LayoutCss.bgfWrapper}>
+        <div className={LayoutCss.container}>
+          
+          <div>
+            <ul className={LayoutCss.breadcrumbUl}>
+              {breadCrumbPath.length > 0 &&
+                breadCrumbPath.map((d, index) => (
+                  <li key={index}>
+                    <Link to="/">{d}</Link> /
+                  </li>
+                ))}
+            </ul>
           </div>
+
+          <div className={LayoutCss.spDetailWrapper}>
+            <ProductImageGallery />
+
+            <ProductInfo
+              product={data}
+              colorsData={colorsData}
+            />
+          </div>
+
         </div>
-      </>
-      )
+      </div>
+    </>
+  );
 }

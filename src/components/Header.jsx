@@ -1,26 +1,27 @@
-import header_logo from "../images/output-onlinepngtools.png";
 import UserMenus from "./UserMenus";
 import ProductSearchWidget from "./ProductSearchWidget";
+import LayoutCss from "../css/newLayoutCopy.module.css"; 
+
 export default function Header({fromLayout}) {
   return (
-    <header class="navbar">
-      <div class="container nav-container">
-          <div class="logo">
+    <header className={LayoutCss.navbar}>
+      <div className={`${LayoutCss.container} ${LayoutCss.navContainer}`}>
+          <div className={LayoutCss.logo}>
           <a href="/">BAGIFY</a>
           </div>
 
-          <nav class="nav-menu">
-          <ul>
-              <li><a href="#">Men</a></li>
-              <li><a href="#">Women</a></li>
-              <li><a href="#">Kids</a></li>
-              <li><a href="#">Footwear</a></li>
-              <li><a href="#">Beauty</a></li>
-          </ul>
+          <nav className={LayoutCss.navMenu}>
+            <ul>
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Women</a></li>
+                <li><a href="#">Kids</a></li>
+                <li><a href="#">Footwear</a></li>
+                <li><a href="#">Beauty</a></li>
+            </ul>
           </nav>
 
-          <ProductSearchWidget />
-          <div class="nav-actions">
+          {/* <ProductSearchWidget /> */}
+          <div className={LayoutCss.navActions}>
             <a href="#">♡</a>
             <a href="#">🛒</a>
             <a href="#">👤</a>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AddToCart from "./AddToCart";
+import LayoutCss from "../css/newLayoutCopy.module.css";
 
 export default function ProductInfo({ product, colorsData }) {
   console.log(product);
@@ -11,23 +12,23 @@ export default function ProductInfo({ product, colorsData }) {
     setColor(color);
   };
   return (
-    <div className="product-info-wrapper">
-      <div className="product-info-detail">
-        <div className="brand">
+    <div className={LayoutCss.productInfoWrapper}>
+      <div className={LayoutCss.productInfoDetail}>
+        <div className={LayoutCss.brand}>
           {product?.[0]?.brandSlug?.toUpperCase()}
         </div>
 
-        <div className="title">{product?.[0]?.name}</div>
+        <div className={LayoutCss.title}>{product?.[0]?.name}</div>
 
-        <div className="price">₹{product?.[0]?.minPrice}</div>
+        <div className={LayoutCss.price}>₹{product?.[0]?.minPrice}</div>
 
-        <div className="mrp-discount">
+        <div className={LayoutCss.mrpDiscount}>
           <span>MRP ₹{product?.[0]?.minPrice}</span>
           <span> ({product?.[0]?.minPriceDiscount}% OFF)</span>
         </div>
 
-        <div className="colors-group">
-          <div className="colors-box">
+        <div className={LayoutCss.colorsGroup}>
+          <div className={LayoutCss.colorsBox}>
             { Object.entries(colorImages).map(([color, images]) => {
             const cleanColor = color.replace(/"/g, "");
 
@@ -38,9 +39,7 @@ export default function ProductInfo({ product, colorsData }) {
             return (
               <div key={color}>
                 <div
-                    className={`color-circle ${
-                      selectedColor === cleanColor ? "active" : ""
-                    }`}
+                  className={`${LayoutCss.colorCircle} ${selectedColor === cleanColor ? "active" : ""}`}
                   style={{
                     backgroundColor: colorObj?.hex
                   }}
@@ -52,13 +51,13 @@ export default function ProductInfo({ product, colorsData }) {
           })}
           </div>
         </div>
-        <div className="pd-btn-group">
+        <div className={LayoutCss.pdBtnGroup}>
           <AddToCart 
             product={product} 
             color={selectedColor}
           />
           
-          <div className="wishlist-btn dtl-btn">
+          <div className={`${LayoutCss.wishlistBtn} ${LayoutCss.dtlBtn}`}>
             <button>
             SAVE TO WISHLIST
             </button>

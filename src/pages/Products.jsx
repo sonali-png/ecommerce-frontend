@@ -4,6 +4,8 @@ import ProductListing from "../components/ProductListing.jsx"
 import userApi from "../api/userApi.js";
 import { useSearchParams } from 'react-router-dom';
 import ProductLoader from "../components/Loader";
+ 
+import LayoutCss from "../css/newLayoutCopy.module.css";
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -121,7 +123,7 @@ export default function Product() {
     ]);
 
     return (
-        <div className="bgf-wrapper">
+        <div className={LayoutCss.bgfWrapper}>
             {
                 loading ? (
                     <div className="page-loader">

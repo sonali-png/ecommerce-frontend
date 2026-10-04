@@ -24,8 +24,8 @@ export default function useCommonList(collectionName, options={}) {
             const response = await adminApi.post("/api/fetchRecordsNew/",
                 { collectionName, options},
             );
-            setRecords(response.data.data || []);
-            setTotalRecords(response.data.totalRecords || 0);
+            setRecords(response?.data?.data || []);
+            setTotalRecords(response?.data?.totalRecords || 0);
         } catch (err) {
             setError(err);
             console.log(err.message);

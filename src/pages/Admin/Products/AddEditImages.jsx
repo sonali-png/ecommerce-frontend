@@ -11,6 +11,8 @@ export default function AddEditImages({
   setFormData
 }) {
   const [activeColor, setActiveColor] = useState(null);
+  const [primaryImageIndex, setPrimaryImageIndex] = useState(0);
+  console.log(`Is primary imahe `, primaryImageIndex);
 
   const toggleAccordion = (color) => {
     setActiveColor(prev =>
@@ -74,6 +76,7 @@ export default function AddEditImages({
               <div className={CommonStyles.accordionBody}>
                 
                   <>
+                    
                     <input
                       className={CommonStyles.formControl}
                       type="file"

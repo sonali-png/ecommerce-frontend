@@ -6,14 +6,12 @@ import DTStyles from "../../../css/Admin/DataTable.module.css";
 
 export default function Variants({ formData, setFormData, selectedColors, setColors, clearError }) {
   const variantAttributes = formData.attributes.filter(a => a.isVariant);
-  const tableHeading = [...(variantAttributes.map(a=>a.name) || []),"Price", "Discount", "Stock", "Action"]
-
+  const tableHeading = [...(variantAttributes.map(a=>a.name) || []),"MRP", "Price", "Discount", "Stock", "Action"]
   const measurementAttribute = variantAttributes.find(a => a.isUsedForMeasurement);
-
-  const otherVariantAttributes = formData.attributes.filter(a => !a.isUsedForMeasurement && a.isVariant);
-
   const specificationAttributes = formData.attributes.filter(a => !a.isUsedForMeasurement && !a.isVariant);
 
+  const [selectedVariants, setSelectedVariants] = useState({});
+  
   const removeVariant = (index) => {
       const updated = formData.variants.filter((_, i) => i !== index);
       setFormData(prev => ({ ...prev, variants: updated }));
@@ -72,12 +70,107 @@ export default function Variants({ formData, setFormData, selectedColors, setCol
     });
   };
 
+  const generateVariants = () => {
+
+    const values = Object.values(selectedVariants);
+
+    if (!values.length) return;
+
+    let combinations = [[]];
+
+    values.forEach(attributeValues => {
+
+        const newCombinations = [];
+
+        combinations.forEach(existing => {
+
+            attributeValues.forEach(value => {
+
+                newCombinations.push([
+                    ...existing,
+                    value
+                ]);
+
+            });
+
+        });
+
+        combinations = newCombinations;
+    });
+
+    const variants = combinations.map(combination => {
+
+        const attributes = {};
+
+        Object.keys(selectedVariants).forEach((name, index) => {
+            attributes[name] = combination[index];
+        });
+
+        return {
+            attributes,
+            sku: "",
+            mrp: "",
+            price: "",
+            discount: "",
+            stock: ""
+        };
+    });
+
+    setFormData(prev => ({
+        ...prev,
+        variants
+    }));
+};
+
 
 return (
     <> 
       { 
         formData.categoryId ? 
         <>
+          <div className='variant_attributes'>
+            {/* Other Attributes */}
+            {variantAttributes.map(attr => {
+               const selectedValues = formData.variantSelections?.[attr._id] || [];
+               return (
+                <>
+                <div className='variant_heading'>{attr.name}</div>
+                <CheckboxGroup
+                  // listStyle="grid"
+                  field={{
+                      label: "",
+                      valueField: "value",
+                      labelField: "label"
+                  }}
+                  options={attr.values.map(v => ({
+                      value: v,
+                      label: v
+                  }))}
+                  value={selectedVariants[attr.name] || []}
+                  onChange={(updatedValues, value, checked) => {
+
+                      setSelectedVariants(prev => ({
+                          ...prev,
+                          [attr.name]: updatedValues
+                      }));
+
+                      if (attr.name.toLowerCase() === "color") {
+                          handleColorSelection(value, checked);
+                      }
+                  }}
+                  clearError={clearError}
+                />
+                </>
+               );
+            })}
+
+          </div>
+          <button
+            type="button"
+            onClick={generateVariants}
+          >
+              Generate Variants
+          </button>
           <div className={DTStyles.tableContainer}>
             <div className={CommonStyles.formGroup}>
               <table className={DTStyles.tableWrapper}>
@@ -88,51 +181,37 @@ return (
                   </thead>
                   <tbody>
                     {
-                      formData.attributes.map((variant, index) => (
+                      formData.variants.map((variant, index) => (
                         <tr key={index}>
-                        {/* Measurement attribute */}
-                        <td>{measurementAttribute.values[index]}</td>
-
-                        {/* Other Attributes */}
-                        {otherVariantAttributes.map(attr => (
-                          <td key={attr._id}>
-                            <CheckboxGroup
-                              listStyle="grid"
-                              field={{
-                                  label: "",
-                                  valueField: "value",
-                                  labelField: "label"
-                              }}
-                              options={attr.values.map(v => ({
-                                  value: v,
-                                  label: v
-                              }))}
-                              value={formData.variants[index]?.[attr.name] || []}
-                              onChange={(updatedValues, value, checked) => {
-                                  updateVariant(index, attr.name, updatedValues);
-
-                                  if (attr.name.toLowerCase() === "color") {
-                                      handleColorSelection(value, checked);
-                                  }
-                              }}
-                              clearError={clearError}
-                            />
-                          </td>
+                        {Object.values(variant.attributes || {}).map((value, i) => (
+                            <td key={i}>
+                                {value}
+                            </td>
                         ))}
 
                         {/* Price, Discount, Stock, Action */}
                         {
-                          formData.variants[index]?.sku ? 
-                          <td>
+                          // formData.variants[index]?.sku ? 
+                          // <td>
+                          //   <input
+                          //   placeholder='00.00'
+                          //   className={CommonStyles.formControl}
+                          //   type="text"
+                          //   value={formData.variants[index]?.sku || ""}
+                          //   onChange={(e) => updateVariant(index, "price", e.target.value)}
+                          //   />
+                          // </td> : ""
+                        }
+                        
+                        <td>
                             <input
                             placeholder='00.00'
                             className={CommonStyles.formControl}
                             type="text"
-                            value={formData.variants[index]?.sku || ""}
-                            onChange={(e) => updateVariant(index, "price", e.target.value)}
+                            value={formData.variants[index]?.mrp || ""}
+                            onChange={(e) => updateVariant(index, "mrp", e.target.value)}
                             />
-                          </td> : ""
-                        }
+                        </td>
                         
                         <td>
                             <input
@@ -182,8 +261,8 @@ return (
                   valueField: "_id",
                   labelField: "name"
               }}
-              value={formData.attributeIds}
-              setFormData={setFormData}
+              value={formData.specifications || []}
+              onChange={handleSpecifications}
               clearError={clearError}
             />
           </div> 
