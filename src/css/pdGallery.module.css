@@ -1,0 +1,32 @@
+.productGallery {
+  display: flex;
+  gap: 40px;
+  width: 60%;
+}
+
+.thumbnailContainer {
+}
+
+.thumbnails {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 20px;
+}
+.thumbnails img {
+  height: 100%;
+  width: 100%;
+}
+.thumbnail.active {
+  border: 2px solid #000;
+}
+
+.mainImageContainer {
+  width: 65%;
+  overflow: hidden;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

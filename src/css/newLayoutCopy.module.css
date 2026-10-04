@@ -1,0 +1,571 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 12px;
+}
+
+:root {
+  --primary-font-color: #55a58f;
+  --secondary-font-color: #0d0d0d;
+}
+
+.navbar {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1240px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.navContainer {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  font-size: 2rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #111;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navMenu ul {
+  display: flex;
+  gap: 30px;
+}
+
+.navMenu a {
+  color: #111;
+  font-size: 1.3rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.navMenu a:hover {
+  color: #ff4d4f;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navActions input {
+  width: 250px;
+  height: 40px;
+  padding: 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+}
+
+.navActions a {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #111;
+}
+
+.navActions a:hover {
+  color: #ff4d4f;
+}
+
+/* section.spSection {
+    margin-top: 20px;
+    padding: 0 15px;
+} */
+
+.spContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.spContainerLeft {
+  width: 20%;
+}
+
+.bgfWrapper {
+  margin-top: 20px;
+}
+
+.spContainerRight {
+  display: flex;
+  width: 80%;
+  justify-content: end;
+}
+
+.verticalMenuBtn {
+  background-color: #111111;
+  border-radius: 4px 4px 0 0;
+  padding: 15px 10px 15px 0;
+}
+
+.verticalMenuBtn .rtinTitle {
+  margin-left: 50px;
+  color: #fff;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.verticalMenus ul li {
+  cursor: pointer;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.verticalMenus ul li a {
+  cursor: pointer;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e4e4e4;
+  font-size: 1.4rem;
+  color: #111;
+  font-weight: 500;
+}
+
+.spContainerRightContent {
+  margin-left: 15px;
+}
+
+.inputGroup {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 100%;
+}
+
+.spContainerRightContent .searchBox input[type="text"] {
+  padding: 15px;
+  font-size: 1.2rem;
+}
+
+.spSearchWidgetContainer {
+  /* width: 100%; */
+  /* margin-bottom: 20px; */
+}
+
+.spSearchWidgetContainer form {
+  width: 100%;
+}
+
+.spSearchWidgetContainer .inputGroup {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.spSearchWidgetContainer .searchBox {
+  flex: 1;
+}
+
+.spSearchWidgetContainer .searchBox input {
+  width: 100%;
+  height: 50px;
+  border: none;
+  padding: 0 20px;
+  font-size: 14px;
+  outline: none;
+  background: transparent;
+}
+
+.spSearchWidgetContainer select {
+  width: 180px;
+  height: 50px;
+  border: none;
+  border-left: 1px solid #e5e5e5;
+  padding: 0 15px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  background: #fff;
+}
+
+.spSearchWidgetContainer button {
+  width: 120px;
+  height: 50px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.spSearchWidgetContainer button:hover {
+  background: #ff4d4f;
+}
+
+.spContentContainer {
+  background-color: #f9f9f9;
+}
+
+.spHomeHeroBanner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.heading {
+  font-size: 3rem;
+}
+
+.subHeading {
+  font-size: 1.5rem;
+}
+
+.contentRight {
+  width: 50%;
+}
+
+.contentRight img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.heroBannerText {
+  line-height: 2;
+}
+
+.spHomeHeroBanner {
+  display: flex;
+  align-items: center;
+  min-height: 450px;
+}
+
+.contentLeft {
+  width: 50%;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroBannerText {
+  max-width: 450px;
+}
+
+.subHeading {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.heading {
+  font-size: 4.5rem;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 25px;
+}
+
+.link {
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #111;
+  border-bottom: 2px solid #111;
+  padding-bottom: 3px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.spContainerTopGridImgList {
+  width: 50%;
+}
+
+.spContainerTopGridBanners {
+  margin-top: 20px;
+}
+
+.spContainerTopGridWidget {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topGrid {
+  padding: 0 15px;
+  position: relative;
+}
+
+.topGrid .topGridInfo {
+  position: absolute;
+  line-height: 1.5;
+  bottom: 35px;
+  left: 70px;
+  right: inherit;
+  top: inherit;
+}
+
+.spTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.spSubtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.bgStd {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container .sectionHeading {
+  padding: 30px;
+  margin: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+.spProductListingWrapper,
+.spProductListingContainer {
+  width: 100%;
+}
+
+.prodImgContainer {
+  width: 310px;
+  height: 400px;
+}
+
+.listImage img {
+  width: 100%;
+  height: 100%;
+}
+
+.spProductBox {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.spProductList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.spProductDtl {
+}
+
+.prodInfo {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.title {
+  color: var(--secondary-font-color);
+}
+
+.priceGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 45%;
+  margin: 0px 86px;
+  color: var(--secondary-font-color);
+}
+
+.brand {
+  font-size: 1.5rem;
+  color: var(--primary-font-color);
+  font-weight: 500;
+}
+
+.mrp {
+  text-decoration: line-through;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.discount {
+  color: var(--primary-font-color);
+}
+
+.productInfoDetail .price {
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.productInfoDetail .mrp {
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.mrpDiscount span {
+  color: var(--primary-font-color);
+}
+
+.mrpDiscount span:nth-child(1) {
+  text-decoration: line-through;
+}
+
+.mrpDiscount span:nth-child(2) {
+  font-weight: 700;
+}
+
+.breadcrumbUl {
+  display: flex;
+  gap: 10px;
+}
+
+.spDetailWrapper {
+  margin-top: 20px;
+}
+
+footer {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.footer {
+  background-color: #f4f4f4;
+  margin: 0 auto;
+  color: black;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Product details page */
+
+.productInfoWrapper {
+  width: 40%;
+}
+
+.productInfoDetail {
+  text-align: center;
+}
+
+.productInfoDetail .title {
+  font-size: 1.3rem;
+}
+
+.colorCircle {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 3px solid #a58585;
+}
+
+.colorsBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 30px;
+}
+
+.dtlBtn {
+  width: 250px;
+  margin: 30px 0px;
+  cursor: pointer;
+}
+
+.dtlBtn button {
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  background: none;
+}
+
+.pdBtnGroup {
+  display: inline-block;
+  align-items: center;
+}
+
+.colorCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.colorCircle.active {
+  border: 2px solid #000;
+}
+
+.spDetailWrapper {
+  display: flex;
+}
+.errorContainer {
+  margin: 0 auto;
+}
+@keyframes scaleImage {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 768px) {
+  .spSearchWidgetContainer .inputGroup {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .spSearchWidgetContainer .searchBox,
+  .spSearchWidgetContainer select,
+  .spSearchWidgetContainer button {
+    width: 100%;
+  }
+
+  .spSearchWidgetContainer select {
+    border-left: none;
+    border-top: 1px solid #e5e5e5;
+  }
+}
