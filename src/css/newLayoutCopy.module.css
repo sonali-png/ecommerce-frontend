@@ -364,8 +364,42 @@ a {
   text-align: center;
 }
 
+h1 {
+  font-size: 3.5rem;
+}
 h2 {
   font-size: 3rem;
+}
+h3 {
+  font-size: 2.5rem;
+}
+h4 {
+  font-size: 2rem;
+}
+h5 {
+  font-size: 1.5rem;
+}
+.strikethrough {
+  text-decoration: line-through;
+}
+.mb10px {
+  margin-bottom: 10px;
+}
+.mt5px {
+  margin-top: 5px;
+}
+.mr5px {
+  margin-right: 5px;
+}
+.btnTransperant{
+  padding: 5px;
+}
+.withNoBorder {
+  border: none;
+  background: none;
+}
+button {
+  cursor: pointer;
 }
 
 .spProductListingWrapper,
@@ -465,17 +499,15 @@ h2 {
   margin-top: 20px;
 }
 
-footer {
-  margin-top: 50px;
-  width: 100%;
-}
-
 .footer {
   background-color: #f4f4f4;
   margin: 0 auto;
   color: black;
   padding: 20px;
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 /* Product details page */
@@ -484,15 +516,12 @@ footer {
   width: 40%;
 }
 
-.productInfoDetail {
-  text-align: center;
-}
 
 .productInfoDetail .title {
   font-size: 1.3rem;
 }
 
-.colorCircle {
+/* .colorCircle {
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -504,7 +533,7 @@ footer {
   justify-content: center;
   margin-top: 20px;
   gap: 30px;
-}
+} */
 
 .dtlBtn {
   width: 250px;
@@ -524,7 +553,7 @@ footer {
   align-items: center;
 }
 
-.colorCircle {
+/* .colorCircle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -534,13 +563,44 @@ footer {
 
 .colorCircle.active {
   border: 2px solid #000;
-}
+} */
+ .active
+ {
+  border: 2px solid #000;
+ }
 
 .spDetailWrapper {
   display: flex;
 }
 .errorContainer {
   margin: 0 auto;
+}
+.attributeGroup {
+  margin-bottom: 20px;
+}
+.attributeName {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.attributeValuesGroup {
+  display: flex;
+  margin-top: 15px;
+}
+.attributeValue {
+  border: 2px solid lightgrey;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.attributeValue.active {
+  border: 3px solid grey;
 }
 @keyframes scaleImage {
   0% {

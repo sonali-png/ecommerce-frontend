@@ -16,6 +16,7 @@ export default function DataTable({
     onEdit,
     setPage
 }) {
+    console.log("columns ", columns);
     const { deleteRecord } = useCrud();
     const start = totalRecords === 0 ? 0 : offset + 1;
     const end = Math.min(offset + limit, totalRecords);

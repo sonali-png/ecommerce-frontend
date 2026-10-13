@@ -1,49 +1,81 @@
 import React, { useState } from "react";
 import CommonStyles from "../../../css/Admin/Common.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddEditImages({
   selectedColors,
   formData,
-  setFormData
+  setFormData,
+  errors
 }) {
   const [activeColor, setActiveColor] = useState(null);
-  const [primaryImageIndex, setPrimaryImageIndex] = useState(0);
-  console.log(`Is primary imahe `, primaryImageIndex);
 
   const toggleAccordion = (color) => {
-    setActiveColor(prev =>
+    setActiveColor((prev) =>
       prev === color ? null : color
     );
   };
 
   const handleImageChange = (color, files) => {
-  const fileArray = Array.from(files);
+    const fileArray = Array.from(files || []);
 
-  setFormData(prev => ({
-    ...prev,
-    colorImages: (prev.colorImages || []).map(item =>
-      item.color === color
-        ? {
-            ...item,
-            images: [...(item.images || []), ...fileArray]
-          }
-        : item
-    )
-  }));
-};
+    console.log("Selected color:", color);
+    console.log("Selected files:", fileArray);
 
-  const removeImage = (color, index) => {
-    setFormData(prev => ({
+    if (!fileArray.length) return;
+
+    setFormData((prev) => ({
       ...prev,
-      colorImages: (prev.colorImages || []).map(item =>
+
+      colorImages: (prev.colorImages || []).map((item) =>
         item.color === color
           ? {
               ...item,
-              images: item.images.filter((_, i) => i !== index)
+              images: [
+                ...(item.images || []),
+
+                ...fileArray.map((file) => ({
+                  file: file,
+                  isPrimary: false
+                }))
+              ]
+            }
+          : item
+      )
+    }));
+  };
+
+  const removeImage = (color, index) => {
+    setFormData((prev) => ({
+      ...prev,
+
+      colorImages: (prev.colorImages || []).map((item) =>
+        item.color === color
+          ? {
+              ...item,
+              images: (item.images || []).filter(
+                (_, i) => i !== index
+              )
+            }
+          : item
+      )
+    }));
+  };
+
+  const setPrimaryImage = (color, index) => {
+    setFormData((prev) => ({
+      ...prev,
+
+      colorImages: (prev.colorImages || []).map((item) =>
+        item.color === color
+          ? {
+              ...item,
+
+              images: (item.images || []).map((img, i) => ({
+                ...img,
+                isPrimary: i === index
+              }))
             }
           : item
       )
@@ -52,58 +84,94 @@ export default function AddEditImages({
 
   return (
     <>
+    {console.log(" formData?.colorImages ",  formData?.colorImages)}
       <div className={CommonStyles.formGroup}>
-          <label className={CommonStyles.formLabel}>Add or Edit images</label>
+        <label className={CommonStyles.formLabel}>
+          Add or Edit images
+        </label>
+
+        <h6>Note: Click on image to make primary</h6>
       </div>
+
       {selectedColors.map((color) => {
-        const colorData = formData?.colorImages?.find(c => c.color === color);
+        const colorData =
+          formData?.colorImages?.find(
+            (c) => c.color === color
+          );
+
+        const images = colorData?.images || [];
 
         const isOpen = activeColor === color;
-        
 
         return (
-        <div className={CommonStyles.formGroup}>
-          <div key={color} className={CommonStyles.accordionItem}>
-            <div
-              className={CommonStyles.accordionHeader}
-              onClick={() => toggleAccordion(color)}
-            >
-              <span>{color}</span>
-              <span>{isOpen ? "▲" : "▼"}</span>
-            </div>
+          <div
+            key={color}
+            className={CommonStyles.formGroup}
+          >
+            <div className={CommonStyles.accordionItem}>
 
-            {isOpen && (
-              <div className={CommonStyles.accordionBody}>
-                
-                  <>
-                    
-                    <input
-                      className={CommonStyles.formControl}
-                      type="file"
-                      multiple
-                      onChange={(e) => {
-                        handleImageChange(
-                          color,
-                          e.target.files
-                        );
-                      }}
-                    />
+              <div
+                className={CommonStyles.accordionHeader}
+                onClick={() => toggleAccordion(color)}
+              >
+                <span>{color}</span>
+                <span>{isOpen ? "▲" : "▼"}</span>
+              </div>
 
-                    <div className={CommonStyles.imageList}>
-                      {colorData.images.map((img, idx) => (
+              {isOpen && (
+                <div className={CommonStyles.accordionBody}>
+
+                  <input
+                    className={CommonStyles.formControl}
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={(e) => {
+                      handleImageChange(
+                        color,
+                        e.target.files
+                      );
+
+                      // Allows selecting the same file again
+                      e.target.value = "";
+                    }}
+                  />
+                  
+                  {/* Error for this color */}
+                  {errors?.colorImages?.[color] && (
+                    <div className={CommonStyles.error}>
+                      * {errors.colorImages[color]}
+                    </div>
+                  )}
+                  
+                  <div className={CommonStyles.imageList}>
+                    {images.map((img, idx) => {
+
+                      let imageSrc = "";
+
+                      if (img.url) {
+                        // Existing uploaded image
+                        imageSrc = img.url;
+                      } else if (img.file instanceof File) {
+                        // Newly selected image
+                        imageSrc = URL.createObjectURL(img.file);
+                      }
+
+                      // console.log("img ", img)
+
+                      return (
                         <div
-                          key={idx}
+                          key={`${color}-${idx}`}
                           className={CommonStyles.imageItem}
                         >
-                          <img
-                            src={
-                              img.url
-                                ? img.url
-                                : URL.createObjectURL(img)
-                            }
-                            alt=""
-                            width="100"
-                          />
+
+                          {imageSrc && (
+                            <img
+                              src={imageSrc}
+                              alt=""
+                              width="100"
+                            />
+                          )}
 
                           <button
                             type="button"
@@ -111,19 +179,43 @@ export default function AddEditImages({
                               removeImage(color, idx)
                             }
                           >
-                            <FontAwesomeIcon 
-                                icon={faXmark} 
-                                style={{fontSize:"1rem"}}                            
+                            <FontAwesomeIcon
+                              icon={faXmark}
+                              style={{
+                                fontSize: "0.5rem",
+                                verticalAlign: "0.875em"
+                              }}
                             />
                           </button>
+                              {/* {console.log("Is primary ", img?.isPrimary)} */}
+                          <label>
+                            <input
+                              type="radio"
+                              name={`primaryImage-${color}`}
+                              checked={
+                                img?.isPrimary === true
+                              }
+                              onChange={() =>
+                                setPrimaryImage(
+                                  color,
+                                  idx
+                                )
+                              }
+                            />
+
+                            Primary
+                          </label>
+
                         </div>
-                      ))}
-                    </div>
-                  </>
-              </div>
-            )}
+                      );
+                    })}
+
+                  </div>
+                </div>
+              )}
+
+            </div>
           </div>
-        </div>
         );
       })}
     </>

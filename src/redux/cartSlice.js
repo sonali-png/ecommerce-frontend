@@ -37,7 +37,7 @@ const cartSlice = createSlice({
   reducers: {
     // 1. Guest Local Reducers
     addToGuestCart: (state, action) => {
-      const existingItem = state.items.find(item => item.productId === action.payload.productId);
+      const existingItem = state.items.find(item => item.productId === action.payload.productId && item.color === action.payload.color);
       if (existingItem) {
         existingItem.quantity += action.payload.quantity || 1;
       } else {
@@ -46,16 +46,16 @@ const cartSlice = createSlice({
       localStorage.setItem('guest_cart', JSON.stringify(state.items));
     },
     updateGuestQuantity: (state, action) => {
-      const { productId, quantity } = action.payload;
-      const item = state.items.find(i => i.productId === productId);
+      const { productId, quantity, color } = action.payload;
+      const item = state.items.find(i => i.productId === productId  && i.color === color);
       if (item && quantity > 0) {
         item.quantity = quantity;
       }
       localStorage.setItem('guest_cart', JSON.stringify(state.items));
     },
     removeFromGuestCart: (state, action) => {
-      // action.payload should be the productId string
-      state.items = state.items.filter(item => item.productId !== action.payload);
+      const { sku } = action.payload;
+      state.items = state.items.filter(item => item.sku.trim() !== sku.trim());
       localStorage.setItem('guest_cart', JSON.stringify(state.items));
     },
     clearGuestCart: (state) => {

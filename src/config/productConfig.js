@@ -115,45 +115,219 @@ export const productConfig = {
             labelField: "name"
         }   
     ],
-    validate(formData) {
-        const errors = {};
+        validateField(fieldName, value) {
 
-        if (!formData?.name) {
-            errors.name = "Name is required.";
+        switch (fieldName) {
+
+            case "name":
+                if (!value || typeof value !== "string" || !value.trim()) {
+                    return "Name is required.";
+                }
+
+                if (value.trim().length < 3) {
+                    return "Name must be at least 3 characters.";
+                }
+
+                if (value.trim().length > 100) {
+                    return "Name cannot exceed 100 characters.";
+                }
+
+                return "";
+
+            case "description":
+                if (!value || typeof value !== "string" || !value.trim()) {
+                    return "Description is required";
+                }
+
+                if (value.trim().length < 10) {
+                    return "Description must be at least 10 characters";
+                }
+
+                return "";
+
+            case "categoryId":
+                if (!value) {
+                    return "Please select category";
+                }
+
+                return "";
+
+            case "brandId":
+                if (!value) {
+                    return "Please select brand";
+                }
+
+                return "";
+
+            case "genericName":
+                if (!value || typeof value !== "string" || !value.trim()) {
+                    return "Generic Name is required";
+                }
+
+                return "";
+
+            case "countryOfOrigin":
+                if (!value) {
+                    return "Please select country";
+                }
+
+                return "";
+
+            case "manufacturedBy":
+                if (!value || typeof value !== "string" || !value.trim()) {
+                    return "Manufacturer Name is required";
+                }
+
+                if (value.trim().length < 2) {
+                    return "Manufacturer Name must be at least 2 characters";
+                }
+
+                return "";
+
+            case "manufacturerAddress":
+                if (
+                    !value ||
+                    typeof value !== "string" ||
+                    !value.trim()
+                ) {
+                    return "Manufacturer Address is required";
+                }
+
+                if (value.trim().length < 5) {
+                    return "Please enter a valid manufacturer address";
+                }
+
+                return "";
+
+            case "packedBy":
+                if (!value || typeof value !== "string" || !value.trim()) {
+                    return "Packer Name is required";
+                }
+
+                if (value.trim().length < 2) {
+                    return "Packer Name must be at least 2 characters";
+                }
+
+                return "";
+
+            case "packerAddress":
+                if (
+                    !value ||
+                    typeof value !== "string" ||
+                    !value.trim()
+                ) {
+                    return "Packer Address is required";
+                }
+
+                if (value.trim().length < 5) {
+                    return "Please enter a valid packer address";
+                }
+
+                return "";
+
+            case "colorImages":
+                if (
+                    !Array.isArray(value) ||
+                    value.length === 0
+                ) {
+                    return "Please add images";
+                }
+
+                return "";
+
+            default:
+                return "";
         }
-        if (!formData?.description) {
-            errors.description = "Description is required";
+    },
+    validate(formData) {
+
+        const errors = {};
+        const nameError = this.validateField(
+            "name",
+            formData?.name
+        );
+
+        if (nameError) {
+            errors.name = nameError;
         }
-        if (!formData?.categoryId) {
-            errors.categoryId = "Please select category";
+        const descriptionError = this.validateField(
+            "description",
+            formData?.description
+        );
+
+        if (descriptionError) {
+            errors.description = descriptionError;
         }
-        console.log("FORM DATA INSIDE CONFIG ", formData);
-        console.log("formData?.brandId" , formData?.brandId);
-        console.log(formData?.brandId.length);
-        console.log(formData?.brandId.length);
-        if (!formData?.brandId) {
-            errors.brandId = "Please select brand";
+        const categoryError = this.validateField(
+            "categoryId",
+            formData?.categoryId
+        );
+
+        if (categoryError) {
+            errors.categoryId = categoryError;
         }
-        if (!formData?.details?.genericName) {
-            errors.genericName = "Generic Name is required";
+        const brandError = this.validateField(
+            "brandId",
+            formData?.brandId
+        );
+
+        if (brandError) {
+            errors.brandId = brandError;
         }
-        console.log("Inside validate", formData);
-        console.log(formData?.details?.countryOfOrigin);
-        if (!formData?.details?.countryOfOrigin) {
-            errors.countryOfOrigin = "Please select country";
+        const genericNameError = this.validateField(
+            "genericName",
+            formData?.details?.genericName
+        );
+
+        if (genericNameError) {
+            errors.genericName = genericNameError;
         }
-        console.log(formData?.details?.manufacturedBy);
-        if (!formData?.details?.manufacturedBy) {
-            errors.manufacturedBy = "Manufacturer Name is required";
+        const countryError = this.validateField(
+            "countryOfOrigin",
+            formData?.details?.countryOfOrigin
+        );
+
+        if (countryError) {
+            errors.countryOfOrigin = countryError;
         }
-        if (!formData?.details?.manufacturerAddress) {
-            errors.manufacturerAddress = "Manufacturer Address is required";
+        const manufacturerError = this.validateField(
+            "manufacturedBy",
+            formData?.details?.manufacturedBy
+        );
+
+        if (manufacturerError) {
+            errors.manufacturedBy = manufacturerError;
         }
-        if (!formData?.details?.packedBy) {
-            errors.packedBy = "Packer Name is required";
+        const manufacturerAddressError = this.validateField(
+            "manufacturerAddress",
+            formData?.details?.manufacturerAddress
+        );
+
+        if (manufacturerAddressError) {
+            errors.manufacturerAddress = manufacturerAddressError;
         }
-        if (!formData?.details?.packerAddress) {
-            errors.packerAddress = "Packer Address is required";
+        const packerError = this.validateField(
+            "packedBy",
+            formData?.details?.packedBy
+        );
+
+        if (packerError) {
+            errors.packedBy = packerError;
+        }
+        const packerAddressError = this.validateField(
+            "packerAddress",
+            formData?.details?.packerAddress
+        );
+
+        if (packerAddressError) {
+            errors.packerAddress = packerAddressError;
+        }
+        const imagesError = this.validateField(
+            "colorImages",
+            formData?.colorImages
+        );
+        if (imagesError) {
+            errors.colorImages = imagesError;
         }
         return errors;
     }

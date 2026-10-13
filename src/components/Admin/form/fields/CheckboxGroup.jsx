@@ -11,6 +11,7 @@ export default function CheckboxGroup({
     onChange,
     listStyle=""
 }) {
+    console.log("Inside checkbox grouop ", value);
 
     // Fetch records only if options are not provided
     const { records } = useCommonList(
@@ -116,6 +117,7 @@ export default function CheckboxGroup({
                                 onChange={() =>
                                     handleChange(recordValue)
                                 }
+                                value={recordValue}
                             />
 
                             <span>{recordLabel}</span>

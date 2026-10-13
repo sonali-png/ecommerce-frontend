@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import adminApi from "../api/adminApi";
 
 export default function useCommonList(collectionName, options={}) {
-    console.log("Inside");
+
+    console.log("Inside commonlist hook collectionname : ", collectionName, " Where : ", options);
     const  {
         id=null,
         whereClause={},
@@ -10,7 +11,8 @@ export default function useCommonList(collectionName, options={}) {
         offset=0,
         sort={},
         search="",
-        populate=[]
+        populate=[],
+        select={}
     } = options;
     
     const [records, setRecords] = useState([]);
@@ -46,9 +48,11 @@ export default function useCommonList(collectionName, options={}) {
             limit,
             offset,
             search,
+            JSON.stringify(select),
             JSON.stringify(whereClause),
             JSON.stringify(sort),
-            JSON.stringify(populate),
+            JSON.stringify(populate)
+            
         ]
     );
 

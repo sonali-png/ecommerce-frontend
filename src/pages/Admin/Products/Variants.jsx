@@ -4,11 +4,16 @@ import CommonStyles from "../../../css/Admin/Common.module.css";
 import DTStyles from "../../../css/Admin/DataTable.module.css";
 
 
-export default function Variants({ formData, setFormData, selectedColors, setColors, clearError }) {
+export default function Variants({ 
+  formData, 
+  setFormData, 
+  selectedColors, 
+  setColors, 
+  clearError 
+}) {
+  
   const variantAttributes = formData.attributes.filter(a => a.isVariant);
   const tableHeading = [...(variantAttributes.map(a=>a.name) || []),"MRP", "Price", "Discount", "Stock", "Action"]
-  const measurementAttribute = variantAttributes.find(a => a.isUsedForMeasurement);
-  const specificationAttributes = formData.attributes.filter(a => !a.isUsedForMeasurement && !a.isVariant);
 
   const [selectedVariants, setSelectedVariants] = useState({});
   
@@ -71,7 +76,6 @@ export default function Variants({ formData, setFormData, selectedColors, setCol
   };
 
   const generateVariants = () => {
-
     const values = Object.values(selectedVariants);
 
     if (!values.length) return;
@@ -100,15 +104,18 @@ export default function Variants({ formData, setFormData, selectedColors, setCol
 
     const variants = combinations.map(combination => {
 
-        const attributes = {};
+        // const attributes = {};
 
-        Object.keys(selectedVariants).forEach((name, index) => {
-            attributes[name] = combination[index];
-        });
+        // Object.keys(selectedVariants).forEach((name, index) => {
+            // attributes[name] = combination[index];
+        // });
 
+        const attributes = variantAttributes.map((attr, index) => ({
+          attributeId: attr._id,
+          value: combination[index]
+        }));
         return {
             attributes,
-            sku: "",
             mrp: "",
             price: "",
             discount: "",
@@ -129,41 +136,42 @@ return (
         formData.categoryId ? 
         <>
           <div className='variant_attributes'>
-            {/* Other Attributes */}
-            {variantAttributes.map(attr => {
-               const selectedValues = formData.variantSelections?.[attr._id] || [];
-               return (
-                <>
-                <div className='variant_heading'>{attr.name}</div>
-                <CheckboxGroup
-                  // listStyle="grid"
-                  field={{
-                      label: "",
-                      valueField: "value",
-                      labelField: "label"
-                  }}
-                  options={attr.values.map(v => ({
-                      value: v,
-                      label: v
-                  }))}
-                  value={selectedVariants[attr.name] || []}
-                  onChange={(updatedValues, value, checked) => {
+            {/* Variant Attributes */}
+            {variantAttributes.map(attr => (
+                <div key={attr._id}>
+                    <div className="variant_heading">
+                        {attr.name}
+                    </div>
 
-                      setSelectedVariants(prev => ({
-                          ...prev,
-                          [attr.name]: updatedValues
-                      }));
+                    <CheckboxGroup
+                        field={{
+                            label: "",
+                            valueField: "value",
+                            labelField: "label"
+                        }}
+                        options={attr.values.map(v => ({
+                            value: v,
+                            label: v
+                        }))}
+                        value={selectedVariants[attr._id] || []}
 
-                      if (attr.name.toLowerCase() === "color") {
-                          handleColorSelection(value, checked);
-                      }
-                  }}
-                  clearError={clearError}
-                />
-                </>
-               );
-            })}
+                        onChange={(updatedValues, value, checked) => {
 
+                            setSelectedVariants(prev => ({
+                                ...prev,
+                                [attr._id]: updatedValues
+                            }));
+
+                            if (attr.name.toLowerCase() === "color") {
+                                handleColorSelection(value, checked);
+                            }
+                        }}
+
+                        clearError={clearError}
+                    />
+
+                </div>
+            ))}
           </div>
           <button
             type="button"
@@ -183,26 +191,11 @@ return (
                     {
                       formData.variants.map((variant, index) => (
                         <tr key={index}>
-                        {Object.values(variant.attributes || {}).map((value, i) => (
+                        {(variant.attributes || []).map((attribute, i) => (
                             <td key={i}>
-                                {value}
+                                {attribute.value}
                             </td>
                         ))}
-
-                        {/* Price, Discount, Stock, Action */}
-                        {
-                          // formData.variants[index]?.sku ? 
-                          // <td>
-                          //   <input
-                          //   placeholder='00.00'
-                          //   className={CommonStyles.formControl}
-                          //   type="text"
-                          //   value={formData.variants[index]?.sku || ""}
-                          //   onChange={(e) => updateVariant(index, "price", e.target.value)}
-                          //   />
-                          // </td> : ""
-                        }
-                        
                         <td>
                             <input
                             placeholder='00.00'
@@ -262,7 +255,12 @@ return (
                   labelField: "name"
               }}
               value={formData.specifications || []}
-              onChange={handleSpecifications}
+              onChange={(updatedValue, selectedValue, checked) => {
+                  setFormData(prev => ({
+                      ...prev,
+                      specifications: updatedValue
+                  }));
+              }}
               clearError={clearError}
             />
           </div> 

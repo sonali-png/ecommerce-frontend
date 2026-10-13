@@ -1,33 +1,51 @@
 import { useState, useEffect } from "react";
 import pdGalleryCss from "../css/pdGallery.module.css";
-export default function ProductImageGallery({ colorImages=[], selectedColor="" }) {
-  const images = colorImages[selectedColor] || [
-    "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260311/PXxk/69b14d554970ce6a6e3a1e3e/-473Wx593H-703144763-orange-MODEL.jpg",
-    "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260311/ZZu0/69b14d554970ce6a6e3a1db2/-78Wx98H-703144763-orange-MODEL2.jpg",
-    "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260311/5bgr/69b14d554970ce6a6e3a1db1/-78Wx98H-703144763-orange-MODEL3.jpg"
-  ];
 
+export default function ProductImageGallery({
+  productImages = [],
+  selectedColor = ""
+}) {
+  console.log("selectedColor ", selectedColor)
   const [activeImage, setActiveImage] = useState("");
+  const currentColorData =
+    productImages.find(item => item.color === selectedColor) ||
+    productImages[0];
+
+  const colorImages = currentColorData?.images || [];
 
   useEffect(() => {
-    if (images.length) {
-      setActiveImage(images[0]);
+    const primaryImage = colorImages.find(
+      img => img.isPrimary === true
+    );
+
+    if (primaryImage) {
+      setActiveImage(primaryImage.url);
+    } else if (colorImages.length > 0) {
+      setActiveImage(colorImages[0].url);
+    } else {
+      setActiveImage("");
     }
-  }, [selectedColor]);
+  }, [selectedColor, productImages]);
 
   return (
     <div className={pdGalleryCss.productGallery}>
+
+      {/* Thumbnails */}
       <div className={pdGalleryCss.thumbnailContainer}>
-        {images.map((img, index) => (
-          <div className={pdGalleryCss.thumbnails}>
+        {colorImages.map((img, index) => (
+          <div
+            className={pdGalleryCss.thumbnails}
+            key={img.public_id || index}
+          >
             <img
-              key={index}
-              src={img}
+              src={img.url}
               alt=""
-              className={`thumbnail ${
-                activeImage === img ? "active" : ""
+              className={`${pdGalleryCss.thumbnail} ${
+                activeImage === img.url
+                  ? pdGalleryCss.active
+                  : ""
               }`}
-              onClick={() => setActiveImage(img)}
+              onClick={() => setActiveImage(img.url)}
             />
           </div>
         ))}
@@ -35,12 +53,15 @@ export default function ProductImageGallery({ colorImages=[], selectedColor="" }
 
       {/* Main Image */}
       <div className={pdGalleryCss.mainImageContainer}>
-        <img
-          src={activeImage}
-          alt="Product"
-          className={pdGalleryCss.mainImage}
-        />
+        {activeImage && (
+          <img
+            src={activeImage}
+            alt="Product"
+            className={pdGalleryCss.mainImage}
+          />
+        )}
       </div>
+
     </div>
   );
 }

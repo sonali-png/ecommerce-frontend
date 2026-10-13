@@ -1,0 +1,78 @@
+.cartContentLayout {
+    width: 840px;
+    max-width: 840px;
+    margin: 0 auto;
+}
+.cartContentWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+.cartItemsList {
+    width: 70%; 
+}
+.cartItemCard {
+    display: flex;
+    padding: 10px;
+    gap: 20px;
+    border: 1px solid rgba(99, 97, 97, 0.199);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.heading {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+.productTitle {
+    font-size: 1.2rem;
+}
+.price {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.mrp {
+    font-size: 1rem;
+}
+.discount {
+    font-size: 1rem;
+}
+.btnRemove {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #00000080;
+}
+.variantGroup {
+    display: flex;
+    gap: 15px;
+}
+.variantGroup select {
+    border: 1px solid #00000080;
+    border-radius: 2px;
+    font-size: 0.9rem;
+}
+.variantGroup label {
+    font-size: 0.9rem;
+}
+.divider {
+    width: 1px;
+    background-color: rgb(206, 206, 222) !important;
+    flex-shrink: 0;
+}
+.itemQuantityControls {
+    display: flex;
+    gap: 10px;
+}
+.itemQuantityControls button{
+    border: none;
+    background: none;
+}
+.cartSummaryCard {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+.btnCheckout {
+    background-color: #f7eded;
+    padding: 8px;;
+}

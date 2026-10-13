@@ -26,7 +26,7 @@ const ProductListing = lazy(() =>
 );
 
 const ProductDetail = lazy(() =>
-  import("./components/ProductDetail.jsx")
+  import("./pages/ProductDetail.jsx")
 );
 
 const NotFound = lazy(() =>

@@ -270,11 +270,15 @@ textarea.formControl {
 .imageList {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 15px;
 }
 .imageItem {
   margin-top: 5px;
   position:relative
+}
+.imageItem img{
+  height: 120px;
+  width: 100px;
 }
 .imageItem button {
   position: absolute;
@@ -282,6 +286,8 @@ textarea.formControl {
   top: -5px;
   z-index: 1;
   border-radius: 50%;
+  height: 15px;
+  width: 15px;
 }
 @media (max-width: 768px) {
   .formGrid { grid-template-columns: 1fr; }
