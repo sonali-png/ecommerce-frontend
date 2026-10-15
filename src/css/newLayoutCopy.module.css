@@ -8,11 +8,6 @@ body {
   font-size: 12px;
 }
 
-:root {
-  --primary-font-color: #55a58f;
-  --secondary-font-color: #0d0d0d;
-}
-
 .navbar {
   width: 100%;
   background: #fff;
@@ -601,6 +596,40 @@ button {
 
 .attributeValue.active {
   border: 3px solid grey;
+}
+.emptyRecordsContainer {
+  width: 400px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.emptyRecordsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.oopsCircle {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #f2f1f1;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btnShopping {
+  background-color: var(--primary-btn-color);
+  color: #fff;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.info {
+  color: var(--secondary-font-color);
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 @keyframes scaleImage {
   0% {

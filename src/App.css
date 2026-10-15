@@ -10,6 +10,12 @@ body{
   box-sizing: border-box;
   font-size: 12px;
 }
+:root {
+  --primary-color: #F5D5ED;
+  --primary-btn-color: #BC69AA;
+  --primary-font-color: #0d0d0d;
+  --secondary-font-color: #8D909B;
+}
 .bgf-container {
   max-width: 1400px;
   margin: 0 auto;

@@ -1,18 +1,21 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { removeFromGuestCart, removeFromUserCartServer, updateGuestQuantity, updateCartQuantityServer } from "../redux/cartSlice";
 import CartStyle from "../css/cart.module.css";
 import LayoutCss from "../css/newLayoutCopy.module.css";
 import useCommonList from "../hooks/useCommonList";
 import { createAttributeMap } from "../utils/attriuteHelper";
+import Error from "../components/Error";
 
 export default function Cart() {
   
   const dispatch = useDispatch();
   const { user } = useAuth();
-
+  const navigate = useNavigate();
+  const [showSignIn, setShowSignIn] = useState(false);
+  
   // Get items from Redux Store
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -142,7 +145,14 @@ export default function Cart() {
     }
   };
 
-   if (productsLoading) {
+  const handleLogin = () => {
+    if(user == null) {
+      navigate("/login");
+      return;
+    }
+    navigate("/checkout");
+  }
+  if (productsLoading) {
     return <p>Loading cart products...</p>;
   }
 
@@ -151,11 +161,10 @@ export default function Cart() {
   }
   if (cartItems.length === 0) {
     return (
-      <div className="empty-cart-container">
-        <h3>Your Cart is Empty</h3>
-        <p>Looks like you haven't added anything to your cart yet.</p>
-        <Link to="/" className="btn-shop-now">Continue Shopping</Link>
-      </div>
+      <Error 
+        heading="Your Cart is Empty"
+        info="Looks like you haven't added anything to your cart yet."
+      />
     );
   }
   
@@ -330,13 +339,10 @@ export default function Cart() {
                     !item.variant ||
                     item.stock < item.quantity
                 )}
-                onClick={() => {
-                  // Navigate to checkout after validating
-                  // all cart items.
-                  window.location.href = "/checkout";
-                }}
+                // Navigate to signup if user not logged in else to checkout
+                onClick={handleLogin}                
               >
-                Proceed to Checkout
+                Proceed to Pay
               </button>
 
               <Link

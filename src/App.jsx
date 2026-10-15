@@ -20,6 +20,10 @@ const Wishlist = lazy(() => import("./pages/Wishlist.jsx"));
 
 const Profile = lazy(() => import("./components/Profile.jsx"));
 const Orders = lazy(() => import("./components/Orders.jsx"));
+const Checkout = lazy(() => import("./pages/Checkout.jsx"));
+
+const SignUp = lazy(() => import("./pages/SignUp.jsx"));
+const SignIn = lazy(() => import("./pages/SignIn.jsx"));
 
 const ProductListing = lazy(() =>
   import("./components/ProductListing.jsx")
@@ -70,7 +74,6 @@ const UsersList = lazy(() =>
   import("./pages/Admin/Users/List.jsx")
 );
 
-
 function Loader() {
   return (
     <div className="page-loader">
@@ -94,18 +97,26 @@ function App() {
               path="/product/:productSlug/:productCode"
               element={<ProductDetail />}
             />
-            {/* <Route path="/login" element={<Login />} /> */}
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<SignUp />} />
           </Route>
 
           {/* Wishlist */}
           <Route path="/wishlist" element={<AccountLayout />}>
             <Route index element={<Wishlist />} />
           </Route>
+          
+          
 
           {/* Protected */}
           <Route element={<ProtectedRoute />}>
             <Route element={<Layout />}>
               <Route path="/cart" element={<Cart />} />
+            </Route>
+
+            {/*Checkout page */}
+            <Route element={<Layout />}>
+              <Route path="/Checkout" element={<Checkout />} />
             </Route>
 
             <Route path="/account" element={<AccountLayout />}>

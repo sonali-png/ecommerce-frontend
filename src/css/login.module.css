@@ -1,0 +1,177 @@
+body {
+  background-color: var(--primary-color);
+}
+.bgfLoginWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-height: 100vh; */
+    padding: 24px 16px;
+    font-family: Arial, sans-serif;
+}
+
+.loginForm {
+    width: 100%;
+    max-width: 400px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.bannerImage {
+  width: 100%;
+  background: linear-gradient(135deg, #ff3f6c, #ff6f91);
+}
+
+.bannerImage img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.form {
+  padding: 28px 24px;
+}
+
+.heading {
+    margin-top: 0;
+    margin-bottom: 22px;
+    color: #282c3f;
+    font-size: 20px;
+    font-weight: 700;   
+}
+.inputGroup {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.inputGroup > input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 48px;
+    padding: 0 12px;
+    border: 1px solid #d4d5d9;
+    border-radius: 3px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.inputGroup > input:focus {
+    border-color: #ff3f6c;
+}
+
+.inputGroup > input::placeholder,
+.bgfPhoneField input::placeholder {
+    color: #94969f;
+}
+
+.bgfPhoneField {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 48px;
+    border: 1px solid #d4d5d9;
+    border-radius: 3px;
+    transition: border-color 0.2s ease;
+}
+
+.bgfPhoneField:focus-within {
+    border-color: #ff3f6c;
+}
+
+.bgfCountryCode {
+    flex-shrink: 0;
+    padding: 0 12px;
+    color: #282c3f;
+    font-size: 14px;
+    line-height: 24px;
+    border-right: 1px solid #d4d5d9;
+}
+
+.bgfPhoneField input {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 12px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #282c3f;
+    font-size: 14px;
+}
+
+.form form > button {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 12px;
+    padding: 12px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ff3f6c;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.form form > button:hover:not(:disabled) {
+    background-color: #e93660;
+}
+
+.form form > button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.form form > p {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.errorText {
+    color: #d32f2f;
+}
+
+.successText {
+    color: #218838;
+}
+
+.authSwitchText {
+    margin-top: 24px;
+    text-align: center;
+    color: #535766;
+    font-size: 13px;
+}
+
+.authSwitchText a {
+    color: #ff3f6c;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.authSwitchText a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .bgfLoginWrapper {
+    align-items: flex-start;
+    padding: 20px 12px;
+  }
+
+  .loginForm {
+    max-width: 400px;
+  }
+
+  .form {
+    padding: 24px 20px;
+  }
+}

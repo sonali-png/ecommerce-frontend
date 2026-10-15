@@ -1,29 +1,30 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import userApi from '../api/userApi';
 
 // Thunks for Authenticated Database Actions
 export const fetchUserCart = createAsyncThunk('cart/fetchUserCart', async (userId) => {
-  const response = await axios.get(`/cart/${userId}`);
+  const response = await userApi.get(`/cart/${userId}`);
   return response.data.items; 
 });
 
 export const addToUserCartServer = createAsyncThunk('cart/addToUserCartServer', async ({ userId, item }) => {
-  const response = await axios.post(`/cart/${userId}/add`, { item });
+  const response = await userApi.post(`/cart/${userId}/add`, { item });
   return response.data.items;
 });
 
 export const mergeGuestCartServer = createAsyncThunk('cart/mergeGuestCartServer', async ({ userId, guestItems }) => {
-  const response = await axios.post(`/cart/${userId}/merge`, { items: guestItems });
+  const response = await userApi.post(`/cart/${userId}/merge`, { items: guestItems });
   return response.data.items;
 });
 
 export const updateCartQuantityServer = createAsyncThunk('cart/updateCartQuantityServer', async ({ userId, productId, quantity }) => {
-  const response = await axios.post(`/cart/${userId}/update-quantity`, { productId, quantity });
+  const response = await userApi.post(`/cart/${userId}/update-quantity`, { productId, quantity });
   return response.data.items;
 });
 
 export const removeFromUserCartServer = createAsyncThunk( "cart/removeFromUserCartServer", async ({ userId, productId }) => {
-  const response = await axios.post(`/cart/${userId}/remove`, { productId,});
+  const response = await userApi.post(`/cart/${userId}/remove`, { productId,});
   return response.data.items;
 });
 const initialState = {
